@@ -1,13 +1,36 @@
 {
   "name": "germin",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "cli": "node index.js"
+  "version": "1.0.1",
+  "description": "Un générateur de projets web statiques avec HTML, CSS et JS",
+  "main": "bin/index.js",
+  "bin": {
+    "germin": "./bin/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "scripts": {
+    "dev": "node bin/index.js",
+    "test": "jest",
+    "lint": "eslint src bin",
+    "format": "prettier --write src bin"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "figlet": "^1.7.0",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.26.0",
+    "eslint": "^8.57.1",
+    "globals": "^16.1.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5"
+  },
+  "keywords": [
+    "cli",
+    "web",
+    "project",
+    "generator"
+  ],
+  "author": "Votre Nom",
+  "license": "MIT"
 }
