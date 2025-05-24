@@ -1,14 +1,14 @@
 const fs = require('fs').promises;
 const path = require('path');
-const { createProject } = require('../src/createProject');
+const { create_project } = require('../src/create_project');
 const rimraf = require('rimraf').sync;
 
 jest.mock('inquirer', () => ({
   prompt: jest.fn().mockResolvedValue({
-    projectName: 'test-project',
-    includeJs: true,
-    initGit: false,
-    githubRepo: false,
+    project_name: 'germin-project',
+    js_type: true,
+    init_git: true,
+    github_repo: true,
   }),
 }));
 
@@ -16,35 +16,38 @@ jest.mock('child_process', () => ({
   exec: jest.fn().mockImplementation((cmd, options, callback) => callback(null, { stdout: '', stderr: '' })),
 }));
 
-describe('createProject', () => {
-  const projectPath = path.join(process.cwd(), 'test-project');
+describe('create_project', () => {
+  const project_path = path.join(process.cwd(), 'germin-project');
 
   beforeEach(() => {
-    rimraf(projectPath);
+    rimraf(project_path);
   });
 
   afterEach(() => {
-    rimraf(projectPath);
+    rimraf(project_path);
   });
 
-  it('should create project with correct structure', async () => {
-    await createProject();
+  it('should create Germin project with correct structure', async () => {
+    await create_project();
 
-    const files = await fs.readdir(projectPath);
+    const files = await fs.readdir(project_path);
     expect(files).toContain('index.html');
-    expect(files).toContain('public');
+    expect(files).toContain('src');
     expect(files).toContain('README.md');
-    expect(files).toContain('TODO.md');
     expect(files).toContain('package.json');
 
-    const publicFiles = await fs.readdir(path.join(projectPath, 'public'));
-    expect(publicFiles).toContain('css');
-    expect(publicFiles).toContain('js');
+    const srcFiles = await fs.readdir(path.join(project_path, 'src'));
+    expect(srcFiles).toContain('components');
+    expect(srcFiles).toContain('styles');
+    expect(srcFiles).toContain('utils');
 
-    const cssFiles = await fs.readdir(path.join(projectPath, 'public', 'css'));
-    expect(cssFiles).toContain('style.css');
+    const stylesFiles = await fs.readdir(path.join(project_path, 'src', 'styles'));
+    expect(stylesFiles).toContain('main.css');
 
-    const jsFiles = await fs.readdir(path.join(projectPath, 'public', 'js'));
-    expect(jsFiles).toContain('script.js');
+    const componentsFiles = await fs.readdir(path.join(project_path, 'src', 'components'));
+    expect(componentsFiles).toContain('App.js');
+    
+    const utilsFiles = await fs.readdir(path.join(project_path, 'src', 'utils'));
+    expect(utilsFiles).toContain('helpers.js');
   });
 });

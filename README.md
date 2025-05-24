@@ -1,110 +1,166 @@
-# Germin - Générateur de Projets Web Statiques
+# Germin 🌱 — Générateur de Projets Web Statiques
 
-Germin est un **outil en ligne de commande (CLI)** simple et convivial conçu pour vous aider à **démarrer rapidement de nouveaux projets web statiques**. Il génère un squelette de base avec les fichiers essentiels (HTML, CSS, et optionnellement JavaScript) et intègre des outils pour organiser votre travail dès le début, s'inspirant de la méthodologie Agile.
+**Version 1.0.3**
 
-C'est l'outil idéal pour les **débutants** ou pour tout développeur souhaitant un point de départ propre et organisé pour un projet web statique.
+Germin est un outil CLI moderne et rapide pour générer des projets web statiques avec une structure propre, un système de tâches Kanban intégré, et des options de personnalisation via une interface interactive.
 
-## Fonctionnalités Clés
+---
 
-*   **Structure de Projet Propre :** Crée une arborescence de fichiers logique et organisée, facilitant la gestion de votre projet.
-*   **Fichiers Essentiels Personnalisables :** Génère automatiquement :
-    *   `index.html` : Votre page principale.
-    *   `public/css/style.css` : Pour vos styles CSS.
-    *   `public/js/script.js` : (Optionnel) Pour votre code JavaScript.
-*   **Organisation des Tâches (Agile) :** Fournit un fichier `TODO.md` contenant des exemples de tâches formulées comme des "User Stories" Agile, vous donnant un cadre pour planifier et suivre votre avancement.
-*   **Intégration Git & GitHub :** Permet d'initialiser un dépôt Git local et de vous aider à le configurer pour un dépôt distant sur GitHub (cette étape est optionnelle).
-*   **Interface Conviviale :** Utilise une interface en ligne de commande simple avec des messages clairs et un peu d'ASCII art pour une touche unique.
+## ✨ Fonctionnalités
 
-## Installation
+- 📁 Génération d’une arborescence claire (HTML, CSS, JS/TS)
+- 🎨 Choix entre CSS pur ou Bootstrap
+- ⚙️ Support JavaScript ou TypeScript
+- 🖼️ Dossiers optionnels : `assets/` (images), `pages/`
+- ✅ Application **Kanban** intégrée pour la gestion de tâches (drag & drop, chronomètre, import/export)
+- 🐙 Intégration Git + GitHub Pages
+- 📦 Scripts intégrés : `dev`, `build`, `deploy`
+- 🧑‍💻 Interface CLI ergonomique (animations + couleurs)
 
-### Prérequis :
+---
 
-*   Node.js (version 16 ou supérieure)
-*   Git (optionnel, nécessaire si vous souhaitez l'initialisation Git)
+## 📦 Installation
 
-### Installation Globale :
-
-Ouvrez votre terminal ou invite de commande et exécutez :
-bash
+```bash
 npm install -g germin
+```
 
-Cela installera Germin sur votre système, le rendant accessible depuis n'importe quel répertoire.
+---
 
-## Comment Utiliser Germin ?
+## 🚀 Utilisation
 
-L'utilisation de Germin est un processus simple guidé par des questions dans le terminal :
+### Créer un projet
 
-1.  **Lancez Germin :**
-    Ouvrez votre terminal dans le répertoire où vous souhaitez créer votre projet (par exemple, votre dossier de développement). Exécutez la commande :
+```bash
+germin create mon-projet
+```
 
-bash
-    germin
+Répondez aux questions guidées pour choisir :
+- Le langage (HTML/CSS ou JavaScript/TypeScript)
+- Le framework CSS (Bootstrap ou CSS pur)
+- Les dossiers optionnels (`assets/`, `pages/`)
+- L'initialisation Git
 
+Puis :
 
-2.  **Répondez aux Questions :**
-    Germin vous posera quelques questions :
-    *   Le **nom de votre projet** (par exemple, `mon-super-projet`). Un dossier portant ce nom sera créé.
-    *   Si vous souhaitez **inclure un fichier JavaScript** (`script.js`).
-    *   Si vous souhaitez **initialiser un dépôt Git** et le configurer pour **GitHub**.
+```bash
+cd mon-projet
+npm install
+npm run dev
+```
 
-3.  **Naviguez vers le Projet :**
-    Une fois la génération terminée, déplacez-vous dans le dossier de votre nouveau projet :
+---
 
-bash
-    cd votre-nom-de-projet # Remplacez par le nom que vous avez choisi
+## 🔧 Structure du projet
 
-
-4.  **Installez les Dépendances :**
-    Le squelette inclut un `package.json` pour gérer les dépendances (comme un serveur de développement simple). Installez-les :
-
-bash
-    npm install
-
-
-5.  **Lancez le Serveur de Développement :**
-    Le squelette généré inclut généralement une commande pour démarrer un serveur local afin de prévisualiser votre projet :
-
-bash
-    npm dev
-
-
-6.  **Ouvrez dans le Navigateur :**
-    Votre projet est maintenant servi localement. Ouvrez votre navigateur web à l'adresse indiquée dans le terminal (souvent `http://localhost:8080`).
-
-Vous êtes prêt à commencer à développer votre projet en éditant les fichiers `index.html`, `style.css`, et `script.js` !
-
-## Structure du Projet Généré
-
-Voici à quoi ressemblera la structure de votre nouveau projet :
-
-mon-super-projet/
-├── index.html          # Votre page principale
-├── public/             # Fichiers accessibles publiquement
+```
+mon-projet/
+├── index.html
+├── public/
 │   ├── css/
-│   │   └── style.css   # Vos styles
-│   └── js/
-│       └── script.js   # Votre code JS (si sélectionné)
-├── package.json        # Configuration du projet et scripts NPM
-├── README.md           # Description de votre projet
-├── TODO.md             # Tâches et User Stories pour vous guider
-└── .gitignore          # Fichiers et dossiers à ignorer par Git
+│   │   └── style.css
+│   ├── js/
+│   │   └── script.js
+│   ├── assets/images/
+│   ├── pages/
+│   └── trello/
+│       ├── app.html
+│       └── scripts/
+│           └── build.js
+├── package.json
+├── README.md
+└── .gitignore
+```
 
-## Contributions
+---
 
-Les contributions sont les bienvenues ! Si vous souhaitez améliorer Germin :
+## ✅ Application Kanban intégrée
 
-1.  Forkez le dépôt (créez votre propre copie).
-2.  Créez une branche pour votre fonctionnalité (`git checkout -b feature/ma-super-fonctionnalite`).
-3.  Committez vos changements (`git commit -m 'Ajout de ma super fonctionnalité'`).
-4.  Poussez vos changements sur votre dépôt fork (`git push origin feature/ma-super-fonctionnalite`).
-5.  Ouvrez une Pull Request (demande de fusion) sur le dépôt original.
+Accessible via : `http://localhost:8080/trello`
 
-## Licence
+### Fonctions :
+- Ajouter, modifier, supprimer des tâches
+- Glisser-déposer entre les colonnes "À faire", "En cours", "Terminé"
+- Chronomètre pour suivre le temps investi
+- Importer/Exporter les tâches au format JSON
 
-Ce projet est distribué sous la licence MIT. Consultez le fichier `LICENSE` pour plus de détails.
+---
 
-## Ressources Utiles
+## 📥 Format d'importation JSON
 
-*   [MDN Web Docs](https://developer.mozilla.org/)
-*   [freeCodeCamp](https://www.freecodecamp.org/)
-*   [W3Schools](https://www.w3schools.com/)
+Vous pouvez importer un fichier `.json` contenant vos tâches. Ce fichier doit être un **tableau d’objets** avec les clés suivantes :
+
+### 🔑 Clés obligatoires :
+
+- `tache` : le titre de la tâche  
+- `description` : un résumé de la tâche  
+- `status` : le statut (`todo`, `in-progress`, `done`)
+
+### 🧾 Exemple de fichier `taches.json` :
+
+```json
+[
+  {
+    "tache": "Développer la navbar",
+    "description": "Navigation responsive",
+    "status": "todo"
+  },
+  {
+    "tache": "Ajouter le CSS global",
+    "description": "Fichier style.css",
+    "status": "in-progress"
+  },
+  {
+    "tache": "Corriger les bugs JS",
+    "description": "Script de gestion du formulaire",
+    "status": "done"
+  }
+]
+```
+
+### Importation :
+1. Allez sur `http://localhost:8080/trello`
+2. Cliquez sur **"Importer JSON"**
+3. Sélectionnez votre fichier
+4. Les tâches apparaissent dans leurs colonnes respectives
+
+---
+
+## ⚙️ Scripts disponibles
+
+| Script          | Description                            |
+|------------------|----------------------------------------|
+| `npm run dev`    | Lance un serveur local (`localhost:8080`) |
+| `npm run build`  | Génère une version optimisée dans `dist/` |
+| `npm run deploy` | Déploie le projet sur GitHub Pages     |
+
+---
+
+## 🤝 Contribuer
+
+1. Forkez le projet : [GitHub](https://github.com/username/germin)
+2. Créez une branche : `git checkout -b feature/ma-fonctionnalite`
+3. Committez : `git commit -m "Ajout d'une fonctionnalité"`
+4. Poussez : `git push origin feature/ma-fonctionnalite`
+5. Ouvrez une Pull Request !
+
+Voir `CONTRIBUTING.md` pour plus de détails.
+
+---
+
+## 📄 Licence
+
+Ce projet est sous licence **MIT**. Voir le fichier `LICENSE`.
+
+---
+
+## 💬 Support
+
+Pour toute question ou suggestion :
+
+- 📧 Email : [mbroumsadjaa@gmail.com](mailto:mbroumsadjaa@gmail.com)
+- 🐛 Ouvrir une issue sur le dépôt GitHub
+
+---
+
+**Créé avec 💚 par l’équipe Germin**
