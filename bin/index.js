@@ -10,8 +10,8 @@ program
   .description(
     chalk.cyan(
       `${figlet.textSync('Germin', { font: 'Ghost' })}\n\n` +
-      'Créez des projets web statiques avec HTML, CSS, JS/TypeScript et une app Kanban.\n' +
-      'Utilisez `germin create <nom>` pour un démarrage rapide ou `germin create` pour le mode interactif.'
+        'Créez des projets web statiques avec HTML, CSS, JS/TypeScript et une app Kanban.\n' +
+        'Utilisez `germin create <nom>` pour un démarrage rapide ou `germin create` pour le mode interactif.'
     )
   );
 
@@ -24,12 +24,17 @@ program
       if (project_name) {
         // Valider le nom du projet
         if (!/^[a-zA-Z0-9-_]+$/.test(project_name)) {
-          spinner.fail(chalk.red('Le nom du projet ne doit contenir que des lettres, chiffres, tirets ou underscores.'));
+          spinner.fail(
+            chalk.red(
+              'Le nom du projet ne doit contenir que des lettres, chiffres, tirets ou underscores.'
+            )
+          );
           process.exit(1);
         }
         const fs = require('fs').promises;
         const path = require('path');
-        const exists = await fs.access(path.join(process.cwd(), project_name))
+        const exists = await fs
+          .access(path.join(process.cwd(), project_name))
           .then(() => true)
           .catch(() => false);
         if (exists) {

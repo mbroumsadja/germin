@@ -3,7 +3,8 @@ const TEMPLATES = {
    * Favicon template (base64-encoded PNG).
    * @returns {string} Base64-encoded favicon data.
    */
-  favicon: () => 'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAADdJREFUWEft1rENAAAMg8B3/pEjN4kO0yEHLsB/Ae4MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB3AZgXAOE3n5EXAAAAAElFTkSuQmCC',
+  favicon: () =>
+    'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAADdJREFUWEft1rENAAAMg8B3/pEjN4kO0yEHLsB/Ae4MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB3AZgXAOE3n5EXAAAAAElFTkSuQmCC',
 
   /**
    * HTML template for the main index page.
@@ -416,9 +417,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         footer {
             background-color: #ddd;
-            text-align: center;
-            padding: 10px;
-            margin-top: auto;
+            display:flex;
+            jutstify-content:center;
+            align-items: center;
+
         }
         @media (max-width: 768px) {
             .kanban-board {
@@ -667,7 +669,14 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {boolean} init_git - Whether Git is initialized.
    * @returns {string} The README content.
    */
-  readme: (project_name, js_type, css_framework, include_assets, include_pages, init_git) => `
+  readme: (
+    project_name,
+    js_type,
+    css_framework,
+    include_assets,
+    include_pages,
+    init_git
+  ) => `
 # ${project_name}
 
 ## Bienvenue dans votre projet web statique !
@@ -864,7 +873,7 @@ async function build() {
 }
 
 build();
-  `
+  `,
 };
 
 module.exports = TEMPLATES;

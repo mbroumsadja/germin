@@ -101,19 +101,19 @@ Vous pouvez importer un fichier `.json` contenant vos tâches. Ce fichier doit �
 ```json
 [
   {
-    "tache": "Développer la navbar",
+    "title": "Développer la navbar",
     "description": "Navigation responsive",
-    "status": "todo"
+    "label": "todo"
   },
   {
-    "tache": "Ajouter le CSS global",
+    "title": "Ajouter le CSS global",
     "description": "Fichier style.css",
-    "status": "in-progress"
+    "label": "in-progress"
   },
   {
-    "tache": "Corriger les bugs JS",
+    "title": "Corriger les bugs JS",
     "description": "Script de gestion du formulaire",
-    "status": "done"
+    "label": "done"
   }
 ]
 ```

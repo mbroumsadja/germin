@@ -23,17 +23,18 @@ async function create_package_json(project_path, project_name, answers) {
     scripts: {
       dev: 'npx serve -l 8080 .',
       build: 'node trello/scripts/build.js',
-      predeploy: 'git remote get-url origin || (echo "Erreur : Configurez un remote origin avec git remote add origin <URL>" && exit 1)',
-      deploy: 'gh-pages -d dist'
+      predeploy:
+        'git remote get-url origin || (echo "Erreur : Configurez un remote origin avec git remote add origin <URL>" && exit 1)',
+      deploy: 'gh-pages -d dist',
     },
     devDependencies: {
       'gh-pages': '^6.1.1',
-      'serve': '^14.2.1'
+      serve: '^14.2.1',
     },
     dependencies: {
       ...(css_framework === 'Bootstrap' && { bootstrap: '^5.3.3' }),
-      ...(js_type === 'TypeScript' && { typescript: '^5.2.2' })
-    }
+      ...(js_type === 'TypeScript' && { typescript: '^5.2.2' }),
+    },
   };
   try {
     await fs.writeFile(
@@ -44,7 +45,9 @@ async function create_package_json(project_path, project_name, answers) {
     await execAsync('npm install', { cwd: project_path });
     spinner.succeed(chalk.green('Dépendances installées.'));
   } catch (error) {
-    console.error(chalk.red(`Erreur lors de la création de package.json : ${error.message}`));
+    console.error(
+      chalk.red(`Erreur lors de la création de package.json : ${error.message}`)
+    );
     throw error;
   }
 }
@@ -67,23 +70,32 @@ async function initialise_git(project_path, answers) {
         {
           type: 'input',
           name: 'github_repo_url',
-          message: chalk.cyan('Entrez l\'URL du dépôt GitHub (ex. https://github.com/<user>/<repo>.git) :'),
-          validate: (input) => input.startsWith('https://github.com/') ? true : chalk.red('Veuillez entrer une URL GitHub valide.')
-        }
+          message: chalk.cyan(
+            'Entrez l`URL du dépôt GitHub (ex. https://github.com/<user>/<repo>.git) :'
+          ),
+          validate: (input) =>
+            input.startsWith('https://github.com/')
+              ? true
+              : chalk.red('Veuillez entrer une URL GitHub valide.'),
+        },
       ];
       const githubAnswers = await inquirer.prompt(githubQuestions);
       const repoUrl = githubAnswers.github_repo_url;
 
       await execAsync('git add .', { cwd: project_path });
       await execAsync('git commit -m "Initial commit"', { cwd: project_path });
-      await execAsync(`git remote add origin ${repoUrl}`, { cwd: project_path });
+      await execAsync(`git remote add origin ${repoUrl}`, {
+        cwd: project_path,
+      });
       spinner.succeed(chalk.green('Dépôt GitHub configuré.'));
       console.log(chalk.cyan('Pour pousser les changements vers GitHub :'));
       console.log(`   cd ${path.basename(project_path)}`);
       console.log('   git push -u origin main');
     }
   } catch (error) {
-    spinner.fail(chalk.red(`Échec de l'initialisation de Git : ${error.message}`));
+    spinner.fail(
+      chalk.red(`Échec de l'initialisation de Git : ${error.message}`)
+    );
     throw error;
   }
 }
@@ -91,24 +103,11 @@ async function initialise_git(project_path, answers) {
 async function clean_up_on_error(project_path) {
   try {
     await fs.rm(project_path, { recursive: true, force: true });
-    console.log(chalk.yellow(`Dossier "${project_path}" supprimé suite à une erreur.`));
+    console.log(
+      chalk.yellow(`Dossier "${project_path}" supprimé suite à une erreur.`)
+    );
   } catch (error) {
     console.error(chalk.red(`Erreur lors du nettoyage : ${error.message}`));
-  }
-}
-
-async function verify_critical_files(project_path) {
-  const critical_files = [
-    path.join(project_path, 'public/css/style.css'),
-    path.join(project_path, 'trello/app.html'),
-    path.join(project_path, 'index.html')
-  ];
-  for (const file of critical_files) {
-    try {
-      await fs.access(file);
-    } catch (error) {
-      throw new Error(`Fichier critique manquant : ${file}`);
-    }
   }
 }
 
@@ -116,9 +115,7 @@ async function create_project() {
   let project_path = '';
   try {
     check_requisites();
-    console.log(
-      chalk.green(figlet.textSync('Germin', { font: 'Ghost' }))
-    );
+    console.log(chalk.green(figlet.textSync('Germin', { font: 'Ghost' })));
     console.log(
       chalk.cyan(
         '🚀 Outil pour initier les débutants au développement web statique\n'
@@ -126,12 +123,7 @@ async function create_project() {
     );
 
     const answers = await prompt_user();
-    const {
-      project_name,
-      js_type,
-      include_assets,
-      include_pages,
-    } = answers;
+    const { project_name, js_type, include_assets, include_pages } = answers;
     project_path = path.join(process.cwd(), project_name);
 
     await create_directories(
@@ -143,7 +135,6 @@ async function create_project() {
     await create_file(project_path, project_name, answers);
     await create_package_json(project_path, project_name, answers);
     await initialise_git(project_path, answers);
-    await verify_critical_files(project_path);
 
     console.log(
       chalk.green(

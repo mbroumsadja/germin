@@ -128,7 +128,9 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -158,6 +160,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,17 +169,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,7 +204,7 @@ const { PATHS } = require('./path');
 const TEMPLATES = require('./templates');
 &nbsp;
 async function create_file(project_path, project_name, answers) {
-  const { css_framework, js_type ,include_assets} = answers;
+  const { css_framework, js_type, include_assets } = answers;
   const spinner = ora('\n création des fichiers...').start();
   try {
     const filePromises = [
@@ -210,7 +214,7 @@ async function create_file(project_path, project_name, answers) {
       ),
       fs.writeFile(
         path.join(project_path, PATHS.readme),
-        TEMPLATES.readme(project_name, js_type,css_framework).trim()
+        TEMPLATES.readme(project_name, js_type, css_framework).trim()
       ),
       fs.writeFile(
         path.join(project_path, PATHS.trello, 'app.html'),
@@ -222,29 +226,31 @@ async function create_file(project_path, project_name, answers) {
       ),
     ];
     <span class="missing-if-branch" title="if path not taken" >I</span>if (include_assets) {
-<span class="cstat-no" title="statement not covered" >      await fs.mkdir(path.join(project_path, 'public/assets/images'), { recursive: true });</span>
+<span class="cstat-no" title="statement not covered" >      await fs.mkdir(path.join(project_path, 'public/assets/images'), {</span>
+        recursive: true,
+      });
       const faviconData = <span class="cstat-no" title="statement not covered" >Buffer.from(TEMPLATES.favicon(), 'base64');</span>
 <span class="cstat-no" title="statement not covered" >      await fs.writeFile(</span>
         path.join(project_path, 'public/assets/images/favicon.png'),
         faviconData
       );
     }
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (js_type) {
-      filePromises.push(
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (js_type) {
+<span class="cstat-no" title="statement not covered" >      filePromises.push(</span>
         fs.writeFile(
           path.join(project_path, PATHS.script),
           js_type === 'TypeScript'
-            ? <span class="branch-0 cbranch-no" title="branch not covered" >TEMPLATES.ts(project_name).trim()</span>
+            ? TEMPLATES.ts(project_name).trim()
             : TEMPLATES.js(project_name).trim()
         )
       );
     }
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (css_framework) {
-<span class="cstat-no" title="statement not covered" >      filePromises.push(</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (css_framework) {
+      filePromises.push(
         fs.writeFile(
           path.join(project_path, PATHS.style),
           css_framework === 'Bootstrap'
-            ? TEMPLATES.css_bootstrap(project_name).trim()
+            ? <span class="branch-0 cbranch-no" title="branch not covered" >TEMPLATES.css_bootstrap(project_name).trim()</span>
             : TEMPLATES.css_pur(project_name).trim()
         )
       );
@@ -265,7 +271,7 @@ module.exports = { create_file };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-24T02:29:08.532Z
+                at 2025-05-29T13:58:50.155Z
             </div>
         <script src="prettify.js"></script>
         <script>

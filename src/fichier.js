@@ -5,7 +5,7 @@ const { PATHS } = require('./path');
 const TEMPLATES = require('./templates');
 
 async function create_file(project_path, project_name, answers) {
-  const { css_framework, js_type ,include_assets} = answers;
+  const { css_framework, js_type, include_assets } = answers;
   const spinner = ora('\n création des fichiers...').start();
   try {
     const filePromises = [
@@ -15,7 +15,7 @@ async function create_file(project_path, project_name, answers) {
       ),
       fs.writeFile(
         path.join(project_path, PATHS.readme),
-        TEMPLATES.readme(project_name, js_type,css_framework).trim()
+        TEMPLATES.readme(project_name, js_type, css_framework).trim()
       ),
       fs.writeFile(
         path.join(project_path, PATHS.trello, 'app.html'),
@@ -27,7 +27,9 @@ async function create_file(project_path, project_name, answers) {
       ),
     ];
     if (include_assets) {
-      await fs.mkdir(path.join(project_path, 'public/assets/images'), { recursive: true });
+      await fs.mkdir(path.join(project_path, 'public/assets/images'), {
+        recursive: true,
+      });
       const faviconData = Buffer.from(TEMPLATES.favicon(), 'base64');
       await fs.writeFile(
         path.join(project_path, 'public/assets/images/favicon.png'),
