@@ -73,6 +73,8 @@ mon-projet/
 |
 ├── package.json
 ├── README.md
+├── vite.config.js
+├── favicon.ico
 └── .gitignore
 ```
 
