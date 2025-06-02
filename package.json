@@ -1,13 +1,12 @@
 {
   "name": "germin",
   "version": "1.0.5",
-  "description": "Un mini framework CLI pour générer des projets web statiques avec HTML, CSS, JS et une app x intégrée pour la gestion des tâches",
+  "description": "Un mini framework CLI pour dévélopper des sites web statiques avec HTML, CSS, JS et une app x intégrée pour la gestion des tâches",
   "main": "src/index.js",
   "type": "commonjs",
   "bin": {
     "germin": "./bin/index.js"
   },
-
   "scripts": {
     "dev": "node bin/index.js",
     "test": "jest --coverage",
@@ -28,7 +27,6 @@
   "devDependencies": {
     "@eslint/js": "^9.27.0",
     "eslint": "^8.57.1",
-    "gh-pages": "^6.3.0",
     "globals": "^16.1.0",
     "jest": "^29.7.0",
     "prettier": "^3.2.5"
