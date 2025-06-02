@@ -8,74 +8,53 @@ async function prompt_user() {
     process.env.GERMIN_PROJECT_NAME
       ? null
       : {
-          type: 'input',
-          name: 'project_name',
-          message: chalk.cyan('📝 Entrez le nom du projet :'),
-          default: 'mon-projet',
-          validate: async (input) => {
-            if (!/^[a-zA-Z0-9-_]+$/.test(input)) {
-              return chalk.red(
-                'Le nom du projet ne doit contenir que des lettres, chiffres, tirets ou underscores.'
-              );
-            }
-            const exists = await fs
-              .access(path.join(process.cwd(), input))
-              .then(() => true)
-              .catch(() => false);
-            return exists
-              ? chalk.red(`Le dossier "${input}" existe déjà.`)
-              : true;
-          },
+        type: 'input',
+        name: 'project_name',
+        message: chalk.cyan('📝 Entrez le nom du projet :'),
+        default: 'mon-projet',
+        validate: async (input) => {
+          if (!/^[a-zA-Z0-9-_]+$/.test(input)) {
+            return chalk.red(
+              'Le nom du projet ne doit contenir que des lettres, chiffres, tirets ou underscores.'
+            );
+          }
+          const exists = await fs
+            .access(path.join(process.cwd(), input))
+            .then(() => true)
+            .catch(() => false);
+          return exists
+            ? chalk.red(`Le dossier "${input}" existe déjà.`)
+            : true;
         },
+      },
     {
       type: 'list',
       name: 'project_type',
       message: chalk.cyan('🌐 Quel type de projet voulez-vous créer ?'),
-      choices: ['Statique (HTML/CSS)', 'JavaScript/TypeScript'],
-      default: 'Statique (HTML/CSS)',
+      choices: ['statique HTML', 'statique HTML/CSS','statique HTML/CSS/JS'],
+      default: 'statique HTML',
     },
     {
       type: 'list',
       name: 'js_type',
-      message: chalk.cyan('⚙️ Voulez-vous utiliser JavaScript ou TypeScript ?'),
-      choices: ['JavaScript', 'TypeScript'],
-      when: (answers) => answers.project_type === 'JavaScript/TypeScript',
+      message: chalk.cyan('⚙️ Voulez-vous allez faire du Javascript ?'),
+      choices: ['javascript','javascript/ASYNC','javascript/FETCH'],
+      when: (answers) => answers.project_type === 'statique HTML/CSS/JS',
     },
     {
       type: 'list',
       name: 'css_framework',
       message: chalk.cyan('🎨 Quel framework CSS voulez-vous utiliser ?'),
-      choices: ['CSS pur', 'Bootstrap'],
-      default: 'CSS pur',
+      choices: ['style sheet cascading (CSS)', 'framework (Bootstrap)'],
+      default: 'style sheet cascading (CSS)',
+      when: (answers) => answers.project_type === 'statique HTML/CSS/JS' || answers.project_type === 'statique HTML/CSS',
     },
     {
-      type: 'confirm',
-      name: 'include_assets',
-      message: chalk.cyan(
-        '🖼️ Voulez-vous inclure un dossier pour les images (public/assets/images) ?'
-      ),
-      default: false,
-    },
-    {
-      type: 'confirm',
-      name: 'include_pages',
-      message: chalk.cyan(
-        '📄 Voulez-vous utiliser plusieurs pages HTML (public/pages) ?'
-      ),
-      default: false,
-    },
-    {
-      type: 'confirm',
-      name: 'init_git',
-      message: chalk.cyan('📚 Voulez-vous initialiser un dépôt Git ?'),
-      default: false,
-    },
-    {
-      type: 'confirm',
-      name: 'github_repo',
-      message: chalk.cyan('🌍 Voulez-vous créer un dépôt GitHub ?'),
-      default: false,
-      when: (answers) => answers.init_git,
+      type:'checkbox',
+      name:'optionel',
+      message:'Choisir une ou plusieurs options :',
+      choices:['pages (public/pages)','images (public/assets/images)','initialiser git (git init)','creé un dépot github (<URL>)'],
+      default: [],
     },
   ].filter(Boolean); // Supprimer les questions nulles (par exemple, project_name si fourni)
 

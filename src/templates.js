@@ -1,38 +1,20 @@
 const TEMPLATES = {
-  /**
-   * Favicon template (base64-encoded PNG).
-   * @returns {string} Base64-encoded favicon data.
-   */
-  favicon: () =>
-    'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAADdJREFUWEft1rENAAAMg8B3/pEjN4kO0yEHLsB/Ae4MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB3AZgXAOE3n5EXAAAAAElFTkSuQmCC',
-
-  /**
-   * HTML template for the main index page.
-   * @param {string} project_name - The name of the project.
-   * @param {boolean} js_type - Whether to include a link to script.js.
-   * @param {string} css_framework - The chosen CSS framework (e.g., 'Bootstrap').
-   * @param {boolean} include_assets - Whether assets folder is included.
-   * @returns {string} The HTML content.
-   */
-  html: (project_name, js_type, css_framework, include_assets) => `
-<!DOCTYPE html>
+  HTML: (project_name) =>
+    `
+  <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${project_name}</title>
-  ${include_assets ? '<link rel="icon" type="image/png" href="public/assets/images/favicon.png">' : ''}
-  ${css_framework === 'Bootstrap' ? '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">' : ''}
-  <link rel="stylesheet" href="public/css/style.css">
-  <link rel="shortcut icon" href="./public/assets/images/favicon.png" type="image/x-icon">
-  ${js_type ? '<script src="public/js/script.js" defer></script>' : ''}
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
   <header>
     <nav>
       <ul>
         <li><a href="#">Accueil</a></li>
-        <li><a href="http://127.0.0.1:8080/trello/app">Trello</a></li>
+        <li><a href="/${project_name}/x/app">Trello</a></li>
       </ul>
     </nav>
   </header>
@@ -47,91 +29,157 @@ const TEMPLATES = {
 </html>
   `,
 
-  /**
-   * CSS template for Bootstrap customizations.
-   * @param {string} project_name - The name of the project (used in comments).
-   * @returns {string} The CSS content.
-   */
-  css_bootstrap: (project_name) => `
-/* Additional Bootstrap styles for ${project_name} */
-
-body {
-  background-color: #f8f9fa !important; /* Light gray background */
-}
-
-header {
-  background-color: #343a40 !important; /* Dark background for header */
-  color: white;
-  padding: 10px 0;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  margin: 0;
-  padding: 0;
-  justify-content: center;
-}
-
-nav a {
-  color: white !important;
-  text-decoration: none;
-  padding: 5px 10px;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: #adb5bd !important; /* Light gray hover color */
-}
-
-main {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 0 20px;
-  text-align: center;
-  min-height: 54vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-h1, h2, h3 {
-  color: #343a40 !important; /* Dark gray for headings */
-}
-
-footer {
-  text-align: center;
-  padding: 15px 0;
-  background-color: #e9ecef !important; /* Light gray footer background */
-  color: #343a40 !important; /* Dark gray text */
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-@media (max-width: 600px) {
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-  }
-}
+  HTML_CSS: (project_name) =>
+    `
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${project_name}</title>
+  <link rel="stylesheet" href="public/css/style.css">
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#32b143"/>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="/${project_name}/x/app"></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Bienvenue dans ${project_name} !</h1>
+    <p>Ceci est votre premier projet web statique.</p>
+  </main>
+  <footer>
+    <p>© 2025 ${project_name}</p>
+  </footer>
+</body>
+</html>`,
+  BOOTSTRAP: () => '/* Bootstrap CSS CDN */',
+  HTML_CSS_JS: (project_name) =>
+    `
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${project_name}</title>
+  <link rel="stylesheet" href="public/css/style.css">
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#32b143" />
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="/${project_name}/x/app">Trello</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Bienvenue dans ${project_name} !</h1>
+    <p>Ceci est votre premier projet web statique.</p>
+  </main>
+  <footer>
+    <p>© 2025 ${project_name}</p>
+  </footer>
+  <script src="./public/js/script.js" defer></script>
+</body>
+</html>
   `,
+  HTML_BOOTSTRAP: (project_name) =>
+    `
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${project_name}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="public/css/style.css">
+  <meta name="theme-color" content="#32b143" />
+  <style>
+    :root {
+      --bs-primary: #333;
+      --bs-light:rgba(6, 54, 32, 0.863);;
+    }
+    
+    body {
+      background-color: var(--bs-light);
+      font-family: 'Arial', sans-serif;
+    }
+    
+    .navbar-custom {
+      background-color: var(--bs-primary) !important;
+    }
+    
+    .main-content {
+      min-height: calc(100vh - 140px);
+    }
+    
+    .footer-custom {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <!-- Header avec Bootstrap Navbar -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+      <div class="container">
+        <div class="navbar-nav mx-auto">
+          <a class="nav-link text-white me-4" href="#">Accueil</a>
+          <a class="nav-link text-white" href="${project_name}/x/app">Trello</a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
+  <!-- Main Content -->
+  <main class="flex-grow-1 d-flex align-items-center justify-content-center main-content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h1 class="display-4 fw-bold text-dark mb-4">Bienvenue dans ${project_name} Bootstrap !</h1>
+          <p class="lead text-muted">Ceci est votre premier projet web statique avec Bootstrap.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-custom py-3 mt-auto">
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <p class="mb-0 text-muted">© 2025 ${project_name} Bootstrap</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>`,
   /**
    * CSS template for the main site styles (pure CSS).
    * @param {string} project_name - The name of the project (used in comments).
    * @returns {string} The CSS content.
    */
-  css_pur: (project_name) => `
+  CSS: (project_name) => `
 /* Styles for ${project_name} */
 
 :root {
-  --primary-color: #333;
-  --background-color: #f0f0f0;
+   --primary-color: #242424;
+  --background-color:rgba(6, 54, 32, 0.863);;
   --text-color: #333;
-  --footer-bg: #ddd;
+  --footer-bg: #32b143;
 }
 
 body {
@@ -187,7 +235,6 @@ h1, h2, h3 {
 
 footer {
   text-align: center;
-  padding: 15px 0;
   background-color: var(--footer-bg);
   color: var(--text-color);
   position: fixed;
@@ -202,14 +249,8 @@ footer {
   }
 }
   `,
-
-  /**
-   * JavaScript template for the main site script.
-   * @param {string} project_name - The name of the project.
-   * @returns {string} The JavaScript content.
-   */
-  js: (project_name) => `
-// script.js for ${project_name}
+  JS: (project_name) => `    
+      // script.js for ${project_name}
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Bienvenue dans ${project_name} ! Le DOM est entièrement chargé et analysé.');
 
@@ -217,492 +258,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const mainHeading = document.querySelector('main h1');
   if (mainHeading) {
     mainHeading.addEventListener('mouseover', () => {
-      mainHeading.style.color = 'blue';
+      mainHeading.style.color = 'white';
     });
     mainHeading.addEventListener('mouseout', () => {
       mainHeading.style.color = '';
     });
   }
 });
-  `,
-
-  /**
-   * TypeScript template for the main site script.
-   * @param {string} project_name - The name of the project.
-   * @returns {string} The TypeScript content.
-   */
-  ts: (project_name) => `
-// script.ts for ${project_name}
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Bienvenue dans ${project_name} ! Le DOM est entièrement chargé et analysé.');
-
-  // Example: Add a simple interaction using TypeScript syntax
-  const mainHeading = document.querySelector('main h1') as HTMLElement | null;
-  if (mainHeading) {
-    mainHeading.addEventListener('mouseover', () => {
-      mainHeading.style.color = 'blue';
-    });
-    mainHeading.addEventListener('mouseout', () => {
-      mainHeading.style.color = '';
-    });
-  }
-});
-  `,
-
-  /**
-   * HTML template for the Trello main page.
-   * @param {string} project_name - The name of the project.
-   * @param {string} css_framework - The chosen CSS framework (e.g., 'Bootstrap').
-   * @param {boolean} include_assets - Whether assets folder is included.
-   * @returns {string} The HTML content.
-   */
-  trello_page: (project_name, css_framework, include_assets) => `
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanban - ${project_name}</title>
-    ${include_assets ? '<link rel="icon" type="image/png" href="/public/assets/images/favicon.png">' : ''}
-    ${css_framework === 'Bootstrap' ? '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">' : ''}
-    <link rel="stylesheet" href="/public/css/style.css">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 2.5em;
-        }
-        .task-form {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .task-form input, .task-form select, .task-form button {
-            padding: 8px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .task-form button {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .task-form button:hover {
-            background-color: #45a049;
-        }
-        .task-form .reset-btn {
-            background-color: #f44336;
-        }
-        .task-form .reset-btn:hover {
-            background-color: #da190b;
-        }
-        .kanban-board {
-            display: flex;
-            justify-content: space-around;
-            padding: 20px;
-            flex: 1;
-        }
-        .column {
-            background-color: #e0e0e0;
-            border-radius: 8px;
-            width: 30%;
-            padding: 10px;
-            min-height: 300px;
-        }
-        .column h2 {
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-            color: #333;
-        }
-        .task {
-            background-color: #2e2e2e;
-            color: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            cursor: move;
-            border: 1px solid #444;
-            position: relative;
-            transition: transform 0.2s;
-        }
-        .task.dragging {
-            opacity: 0.5;
-            transform: scale(1);
-        }
-        .delete-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: none;
-            border: none;
-            color: #ff4444;
-            cursor: pointer;
-            font-size: 1.2em;
-            padding: 0;
-        }
-        .delete-btn:hover {
-            color: #ff0000;
-        }
-        .label {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 0.8em;
-            color: white;
-            margin-bottom: 5px;
-        }
-        .label.urgent {
-            background-color: #e74c3c;
-        }
-        .label.normal {
-            background-color: #3498db;
-        }
-        .task h3 {
-            margin: 5px 0;
-            font-size: 1em;
-            padding: 5px;
-            border-radius:5px ;
-            background-color: #ddd;
-        }
-        .task p {
-            margin: 5px 0;
-            font-size: 0.9em;
-            color: #ccc;
-        }
-        .timer-container {
-            text-align: center;
-            margin: 10px 0;
-        }
-        .timer-container span {
-            font-size: 1.2em;
-            margin-right: 10px;
-        }
-        .timer-container button {
-            padding: 8px 16px;
-            margin: 5px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .timer-container .start-btn {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .timer-container .start-btn:hover {
-            background-color: #45a049;
-        }
-        .timer-container .stop-btn {
-            background-color: #f0ad4e;
-            color: white;
-        }
-        .timer-container .stop-btn:hover {
-            background-color: #ec971f;
-        }
-        .timer-container .reset-btn {
-            background-color: #f44336;
-            color: white;
-        }
-        .timer-container .reset-btn:hover {
-            background-color: #da190b;
-        }
-        footer {
-            background-color: #ddd;
-            display:flex;
-            jutstify-content:center;
-            align-items: center;
-
-        }
-        @media (max-width: 768px) {
-            .kanban-board {
-                flex-direction: column;
-                align-items: center;
-            }
-            .column {
-                width: 90%;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="timer-container">
-        <span id="timer">Temps investi : 00:00:00</span>
-        <button class="start-btn" onclick="startTimer()">Démarrer</button>
-        <button class="stop-btn" onclick="stopTimer()">Arrêter</button>
-        <button class="reset-btn" onclick="resetTimer()">Réinitialiser</button>
-    </div>
-    <div class="task-form">
-        <input type="text" id="task-title" placeholder="Titre de la tâche" required>
-        <input type="text" id="task-desc" placeholder="Description" required>
-        <select id="task-label">
-            <option value="urgent">Urgent</option>
-            <option value="normal">Normal</option>
-        </select>
-        <button onclick="addTask()">Ajouter une tâche</button>
-        <input type="file" id="json-upload" accept=".json" onchange="uploadTasks()">
-        <button class="reset-btn" onclick="resetTasks()">Réinitialiser</button>
-    </div>
-    <div class="kanban-board">
-        <div class="column" id="todo" ondragover="allowDrop(event)" ondrop="drop(event, 'todo')">
-            <h2>À faire</h2>
-        </div>
-        <div class="column" id="in-progress" ondragover="allowDrop(event)" ondrop="drop(event, 'in-progress')">
-            <h2>En cours</h2>
-        </div>
-        <div class="column" id="done" ondragover="allowDrop(event)" ondrop="drop(event, 'done')">
-            <h2>Terminé</h2>
-        </div>
-    </div>
-    <footer>
-        <p>© 2025 ${project_name}</p>
-    </footer>
-    <script>
-        // Charger les tâches depuis localStorage
-        let tasks = JSON.parse(localStorage.getItem("kanbanTasks")) || {
-            "todo": [],
-            "in-progress": [],
-            "done": []
-        };
-
-        // Initialiser le chronomètre
-        let timer = JSON.parse(localStorage.getItem("projectTimer")) || 0;
-        let timerInterval = null;
-        const timerDisplay = document.getElementById("timer");
-
-        function formatTime(seconds) {
-            const hrs = Math.floor(seconds / 3600).toString().padStart(2, "0");
-            const mins = Math.floor((seconds % 3600) / 60).toString().padStart(2, "0");
-            const secs = (seconds % 60).toString().padStart(2, "0");
-            return \`\${hrs}:\${mins}:\${secs}\`;
-        }
-
-        function updateTimer() {
-            timer++;
-            timerDisplay.textContent = \`Temps investi : \${formatTime(timer)}\`;
-            localStorage.setItem("projectTimer", JSON.stringify(timer));
-        }
-
-        function startTimer() {
-            if (!timerInterval) {
-                timerInterval = setInterval(updateTimer, 1000);
-            }
-        }
-
-        function stopTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-        }
-
-        function resetTimer() {
-            stopTimer();
-            timer = 0;
-            timerDisplay.textContent = \`Temps investi : \${formatTime(timer)}\`;
-            localStorage.setItem("projectTimer", JSON.stringify(timer));
-        }
-
-        // Charger les tâches
-        function loadTasks() {
-            ["todo", "in-progress", "done"].forEach(columnId => {
-                const column = document.getElementById(columnId);
-                column.innerHTML = \`<h2>\${columnId === "todo" ? "À faire" : columnId === "in-progress" ? "En cours" : "Terminé"}</h2>\`;
-                tasks[columnId].forEach(task => {
-                    const taskElement = createTaskElement(task);
-                    column.appendChild(taskElement);
-                });
-            });
-            timerDisplay.textContent = \`Temps investi : \${formatTime(timer)}\`;
-        }
-
-        function createTaskElement(task) {
-            const taskElement = document.createElement("div");
-            taskElement.className = "task";
-            taskElement.setAttribute("draggable", "true");
-            taskElement.setAttribute("data-id", task.id);
-            taskElement.innerHTML = \`
-                <div class="label \${task.label}">\${task.label.charAt(0).toUpperCase() + task.label.slice(1)}</div>
-                <h3>\${task.title}</h3>
-                <p>\${task.description}</p>
-                <button class="delete-btn" onclick="deleteTask(this, '\${task.id}')">×</button>
-            \`;
-            taskElement.addEventListener("dragstart", drag);
-            return taskElement;
-        }
-
-        function saveTasks() {
-            tasks = {
-                "todo": [],
-                "in-progress": [],
-                "done": []
-            };
-            ["todo", "in-progress", "done"].forEach(columnId => {
-                const column = document.getElementById(columnId);
-                const taskElements = column.querySelectorAll(".task");
-                taskElements.forEach(taskElement => {
-                    const label = taskElement.querySelector(".label").textContent.toLowerCase();
-                    const title = taskElement.querySelector("h3").textContent;
-                    const description = taskElement.querySelector("p").textContent;
-                    const id = taskElement.getAttribute("data-id");
-                    tasks[columnId].push({ id, title, description, label });
-                });
-            });
-            localStorage.setItem("kanbanTasks", JSON.stringify(tasks));
-        }
-
-        function deleteTask(button, taskId) {
-            if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
-                button.parentElement.remove();
-                ["todo", "in-progress", "done"].forEach(columnId => {
-                    tasks[columnId] = tasks[columnId].filter(task => task.id !== taskId);
-                });
-                saveTasks();
-            }
-        }
-
-        function resetTasks() {
-            if (confirm("Êtes-vous sûr de vouloir réinitialiser toutes les tâches ? Cette action est irréversible.")) {
-                localStorage.removeItem("kanbanTasks");
-                tasks = { "todo": [], "in-progress": [], "done": [] };
-                loadTasks();
-            }
-        }
-
-        function drag(event) {
-            event.dataTransfer.setData("text/plain", event.target.getAttribute("data-id"));
-            event.target.classList.add("dragging");
-            setTimeout(() => {
-                event.target.style.display = "none";
-            }, 0);
-        }
-
-        function allowDrop(event) {
-            event.preventDefault();
-        }
-
-        function drop(event, columnId) {
-            event.preventDefault();
-            const taskId = event.dataTransfer.getData("text/plain");
-            const draggedElement = document.querySelector(\`.task[data-id="\${taskId}"]\`);
-            if (draggedElement && event.target.classList.contains("column")) {
-                draggedElement.style.display = "";
-                draggedElement.classList.remove("dragging");
-                event.target.appendChild(draggedElement);
-                saveTasks();
-            }
-        }
-
-        function addTask() {
-            const title = document.getElementById("task-title").value.trim();
-            const desc = document.getElementById("task-desc").value.trim();
-            const label = document.getElementById("task-label").value;
-
-            if (!title || !desc) {
-                alert("Veuillez remplir tous les champs !");
-                return;
-            }
-
-            const taskId = Date.now().toString();
-            const task = { id: taskId, title, description: desc, label };
-            tasks["todo"].push(task);
-            const taskElement = createTaskElement(task);
-            document.getElementById("todo").appendChild(taskElement);
-            saveTasks();
-            document.getElementById("task-title").value = "";
-            document.getElementById("task-desc").value = "";
-        }
-
-        function uploadTasks() {
-            const fileInput = document.getElementById("json-upload");
-            const file = fileInput.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                try {
-                    const uploadedTasks = JSON.parse(event.target.result);
-                    if (!Array.isArray(uploadedTasks)) {
-                        alert("Le fichier JSON doit contenir un tableau de tâches !");
-                        return;
-                    }
-                    uploadedTasks.forEach(task => {
-                        if (!task.title || !task.description || !task.label) {
-                            alert("Chaque tâche doit avoir un titre, une description et une étiquette !");
-                            return;
-                        }
-                        const taskId = (Date.now() + Math.random()).toString();
-                        const newTask = { id: taskId, title: task.title, description: task.description, label: task.label };
-                        tasks["todo"].push(newTask);
-                        const taskElement = createTaskElement(newTask);
-                        document.getElementById("todo").appendChild(taskElement);
-                    });
-                    saveTasks();
-                } catch (e) {
-                    alert("Erreur lors de la lecture du fichier JSON : format invalide !");
-                }
-            };
-            reader.readAsText(file);
-            fileInput.value = "";
-        }
-
-        window.onload = loadTasks;
-    </script>
-</body>
-</html>
-  `,
-
+`,
   /**
    * README template.
    * @param {string} project_name - The name of the project.
-   * @param {boolean} js_type - Whether JS is included in the main site.
-   * @param {string} css_framework - The chosen CSS framework.
-   * @param {boolean} include_assets - Whether assets folder is included.
-   * @param {boolean} include_pages - Whether pages folder is included.
-   * @param {boolean} init_git - Whether Git is initialized.
    * @returns {string} The README content.
    */
-  readme: (
+  README: (
     project_name,
-    js_type,
-    css_framework,
-    include_assets,
-    include_pages,
-    init_git
   ) => `
 # ${project_name}
 
 ## Bienvenue dans votre projet web statique !
 
 Ce projet a été généré avec **Germin**, un outil CLI pour créer rapidement des projets web statiques avec une structure organisée et une application Kanban pour gérer vos tâches. Ce README vous guide à travers l'installation, l'utilisation et le développement de votre projet.
-
-### Structure du projet
-
-\`\`\`
-${project_name}/
-├── index.html              # Page principale
-├── public/
-│   ├── css/
-│   │   └── style.css       # Styles CSS ${css_framework === 'Bootstrap' ? '(personnalisations pour Bootstrap)' : ''}
-│   ├── js/                 ${js_type ? '# Scripts JavaScript/TypeScript' : '# (Optionnel, non inclus)'}
-│   │   └── script.js
-│   ├── assets/images/      ${include_assets ? '# Dossier pour images et favicon (ex. favicon.png)' : '# (Optionnel, non inclus)'}
-│   ├── pages/              ${include_pages ? '# Dossier pour pages HTML supplémentaires' : '# (Optionnel, non inclus)'}
-│   └── trello/
-│       ├── app.html        # Application Kanban pour gérer les tâches
-│       └── scripts/
-│           └── build.js    # Script de construction
-├── package.json            # Configuration et scripts NPM
-├── README.md               # Ce fichier
-${init_git ? '└── .gitignore                # Fichiers à ignorer par Git' : ''}
-\`\`\`
 
 ### Prérequis
 
@@ -771,48 +347,454 @@ Votre projet sera déployé sur GitHub Pages.
 - **Ajouter des ressources** :
   - Placez les images ou autres fichiers dans \`public/assets/images/\` si activé.
 
-### Contribuer
-
-1. Forkez le dépôt.
-2. Créez une branche : \`git checkout -b feature/ma-fonctionnalite\`.
-3. Commitez vos changements : \`git commit -m 'Ajout de ma fonctionnalité'\`.
-4. Poussez vers votre fork : \`git push origin feature/ma-fonctionnalite\`.
-5. Ouvrez une Pull Request.
-
-### Licence
-
-Ce projet est sous licence MIT. Voir le fichier \`LICENSE\` pour plus de détails.
-
----
-
 **Généré avec 💚 par Germin**
   `,
 
-  /**
-   * .gitignore template.
-   * @returns {string} The gitignore content.
-   */
-  gitignore: `
-# Dependencies
-node_modules/
-
-# Build output
-dist/
-
-# Logs
-*.log
-
-# IDE specific files
-.vscode/
-.idea/
+  GITIGNORE: (project_name) => `//${project_name}
+  node_modules
   `,
+  /**
+   * HTML template for the Trello main page.
+   * @param {string} project_name - The name of the project.
+   * @returns {string} The HTML content.
+   */
+  APP: (project_name) => `
+  <!DOCTYPE html>
+  <html lang="fr">
+  <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Kanban - ${project_name}</title>
+     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+     <link rel="stylesheet" href="/public/css/style.css">
+  <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color:rgba(6, 54, 32, 0.863);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 2.5em;
+        }
+        .task-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .task-form input, .task-form select, .task-form button {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .task-form button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .task-form button:hover {
+            background-color: #45a049;
+        }
+        .task-form .reset-btn {
+            background-color: #f44336;
+        }
+        .task-form .reset-btn:hover {
+            background-color: #da190b;
+        }
+        .kanban-board {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            flex: 1;
+        }
+        .column {
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            width: 30%;
+            padding: 10px;
+            min-height: 300px;
+        }
+        .column h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .task {
+            background-color: #2e2e2e;
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: move;
+            border: 1px solid #444;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .task.dragging {
+            opacity: 0.5;
+            transform: scale(1);
+        }
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 0;
+        }
+        .delete-btn:hover {
+            color: #ff0000;
+        }
+        .label {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            color: white;
+            margin-bottom: 5px;
+        }
+        .label.urgent {
+            background-color: #e74c3c;
+        }
+        .label.normal {
+            background-color: #3498db;
+        }
+        .task h3 {
+            margin: 5px 0;
+            font-size: 1em;
+            padding: 5px;
+            border-radius:5px ;
+            background-color: #ddd;
+            color:black;
+        }
+        .task p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+        .timer-container {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .timer-container span {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+        .timer-container button {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .timer-container .start-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .timer-container .start-btn:hover {
+            background-color: #45a049;
+        }
+        .timer-container .stop-btn {
+            background-color: #f0ad4e;
+            color: white;
+        }
+        .timer-container .stop-btn:hover {
+            background-color: #ec971f;
+        }
+        .timer-container .reset-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        .timer-container .reset-btn:hover {
+            background-color: #da190b;
+        }
+        footer {
+            background-color: #ddd;
+            display:flex;
+            justify-content:center;
+            align-items: center;
+            width:100%;
+            height:3vh;
+        }
+        @media (max-width: 768px) {
+            .kanban-board {
+                flex-direction: column;
+                align-items: center;
+            }
+            .column {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+        }
+          #timer{
+          font-size: 30px;
+          font-weight:bold;
+          color: rgb(221, 221, 221);
+        }
+    </style>
+  </head>
+  <body>
+     <div class="timer-container">
+        <span id="timer">00:00:00</span>
+        <button class="start-btn" onclick="startTimer()">Démarrer</button>
+        <button class="stop-btn" onclick="stopTimer()">Arrêter</button>
+        <button class="reset-btn" onclick="resetTimer()">Réinitialiser</button>
+     </div>
+     <div class="task-form">
+        <input type="text" id="task-title" placeholder="Titre de la tâche" required>
+        <input type="text" id="task-desc" placeholder="Description" required>
+        <select id="task-label">
+          <option value="urgent">Urgent</option>
+          <option value="normal">Normal</option>
+        </select>
+        <button onclick="addTask()">Ajouter une tâche</button>
+        <input type="file" id="json-upload" accept=".json" onchange="uploadTasks()">
+        <button class="reset-btn" onclick="resetTasks()">Réinitialiser</button>
+     </div>
+     <div class="kanban-board">
+        <div class="column" id="todo" ondragover="allowDrop(event)" ondrop="drop(event, 'todo')">
+          <h2>À faire</h2>
+        </div>
+        <div class="column" id="in-progress" ondragover="allowDrop(event)" ondrop="drop(event, 'in-progress')">
+          <h2>En cours</h2>
+        </div>
+        <div class="column" id="done" ondragover="allowDrop(event)" ondrop="drop(event, 'done')">
+          <h2>Terminé</h2>
+        </div>
+     </div>
+     <footer>
+        <p>© 2025 ${project_name}</p>
+     </footer>
+     <script>
+        // Utiliser une clé unique pour chaque projet dans le cache
+        const PROJECT_KEY = "kanbanTasks_${project_name.replace(/[^a-zA-Z0-9]/g, '_')}";
+        const TIMER_KEY = "projectTimer_${project_name.replace(/[^a-zA-Z0-9]/g, '_')}";
 
+        // Charger les tâches depuis localStorage pour ce projet
+        let tasks = JSON.parse(localStorage.getItem(PROJECT_KEY)) || {
+          "todo": [],
+          "in-progress": [],
+          "done": []
+        };
+
+        // Initialiser le chronomètre
+        let timer = JSON.parse(localStorage.getItem(TIMER_KEY)) || 0;
+        let timerInterval = null;
+        const timerDisplay = document.getElementById("timer");
+
+        function formatTime(seconds) {
+          const hrs = Math.floor(seconds / 3600).toString().padStart(2, "0");
+          const mins = Math.floor((seconds % 3600) / 60).toString().padStart(2, "0");
+          const secs = (seconds % 60).toString().padStart(2, "0");
+          return \`\${hrs}:\${mins}:\${secs}\`;
+        }
+
+        function updateTimer() {
+          timer++;
+          timerDisplay.textContent = \`\${formatTime(timer)}\`;
+          localStorage.setItem(TIMER_KEY, JSON.stringify(timer));
+        }
+
+        function startTimer() {
+          if (!timerInterval) {
+             timerInterval = setInterval(updateTimer, 1000);
+          }
+        }
+
+        function stopTimer() {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+
+        function resetTimer() {
+          stopTimer();
+          timer = 0;
+          timerDisplay.textContent = \`\${formatTime(timer)}\`;
+          localStorage.setItem(TIMER_KEY, JSON.stringify(timer));
+        }
+
+        // Charger les tâches
+        function loadTasks() {
+          ["todo", "in-progress", "done"].forEach(columnId => {
+             const column = document.getElementById(columnId);
+             column.innerHTML = \`<h2>\${columnId === "todo" ? "À faire" : columnId === "in-progress" ? "En cours" : "Terminé"}</h2>\`;
+             tasks[columnId].forEach(task => {
+                const taskElement = createTaskElement(task);
+                column.appendChild(taskElement);
+             });
+          });
+          timerDisplay.textContent = \`\${formatTime(timer)}\`;
+        }
+
+        function createTaskElement(task) {
+          const taskElement = document.createElement("div");
+          taskElement.className = "task";
+          taskElement.setAttribute("draggable", "true");
+          taskElement.setAttribute("data-id", task.id);
+          taskElement.innerHTML = \`
+             <div class="label \${task.label}">\${task.label.charAt(0).toUpperCase() + task.label.slice(1)}</div>
+             <h3>\${task.title}</h3>
+             <p>\${task.description}</p>
+             <button class="delete-btn" onclick="deleteTask(this, '\${task.id}')">×</button>
+          \`;
+          taskElement.addEventListener("dragstart", drag);
+          return taskElement;
+        }
+
+        function saveTasks() {
+          tasks = {
+             "todo": [],
+             "in-progress": [],
+             "done": []
+          };
+          ["todo", "in-progress", "done"].forEach(columnId => {
+             const column = document.getElementById(columnId);
+             const taskElements = column.querySelectorAll(".task");
+             taskElements.forEach(taskElement => {
+                const label = taskElement.querySelector(".label").textContent.toLowerCase();
+                const title = taskElement.querySelector("h3").textContent;
+                const description = taskElement.querySelector("p").textContent;
+                const id = taskElement.getAttribute("data-id");
+                tasks[columnId].push({ id, title, description, label });
+             });
+          });
+          localStorage.setItem(PROJECT_KEY, JSON.stringify(tasks));
+        }
+
+        function deleteTask(button, taskId) {
+          if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
+             button.parentElement.remove();
+             ["todo", "in-progress", "done"].forEach(columnId => {
+                tasks[columnId] = tasks[columnId].filter(task => task.id !== taskId);
+             });
+             saveTasks();
+          }
+        }
+
+        function resetTasks() {
+          if (confirm("Êtes-vous sûr de vouloir réinitialiser toutes les tâches ? Cette action est irréversible.")) {
+             localStorage.removeItem(PROJECT_KEY);
+             tasks = { "todo": [], "in-progress": [], "done": [] };
+             loadTasks();
+          }
+        }
+
+        function drag(event) {
+          event.dataTransfer.setData("text/plain", event.target.getAttribute("data-id"));
+          event.target.classList.add("dragging");
+          setTimeout(() => {
+             event.target.style.display = "none";
+          }, 0);
+        }
+
+        function allowDrop(event) {
+          event.preventDefault();
+        }
+
+        function drop(event, columnId) {
+          event.preventDefault();
+          const taskId = event.dataTransfer.getData("text/plain");
+          const draggedElement = document.querySelector(\`.task[data-id="\${taskId}"]\`);
+          if (draggedElement && event.target.classList.contains("column")) {
+             draggedElement.style.display = "";
+             draggedElement.classList.remove("dragging");
+             event.target.appendChild(draggedElement);
+             saveTasks();
+          }
+        }
+
+        function addTask() {
+          const title = document.getElementById("task-title").value.trim();
+          const desc = document.getElementById("task-desc").value.trim();
+          const label = document.getElementById("task-label").value;
+
+          if (!title || !desc) {
+             alert("Veuillez remplir tous les champs !");
+             return;
+          }
+
+          // Vérifier l'unicité de la tâche (titre + description)
+          const isDuplicate = Object.values(tasks).some(column =>
+             column.some(task => task.title === title && task.description === desc)
+          );
+          if (isDuplicate) {
+             alert("Une tâche avec ce titre et cette description existe déjà !");
+             return;
+          }
+
+          const taskId = Date.now().toString() + Math.random().toString(36).substr(2, 9);
+          const task = { id: taskId, title, description: desc, label };
+          tasks["todo"].push(task);
+          const taskElement = createTaskElement(task);
+          document.getElementById("todo").appendChild(taskElement);
+          saveTasks();
+          document.getElementById("task-title").value = "";
+          document.getElementById("task-desc").value = "";
+        }
+
+        function uploadTasks() {
+          const fileInput = document.getElementById("json-upload");
+          const file = fileInput.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function(event) {
+             try {
+                const uploadedTasks = JSON.parse(event.target.result);
+                if (!Array.isArray(uploadedTasks)) {
+                  alert("Le fichier JSON doit contenir un tableau de tâches !");
+                  return;
+                }
+                let added = 0;
+                uploadedTasks.forEach(task => {
+                  if (!task.title || !task.description || !task.label) {
+                     return;
+                  }
+                  // Vérifier l'unicité de la tâche (titre + description)
+                  const isDuplicate = Object.values(tasks).some(column =>
+                     column.some(t => t.title === task.title && t.description === task.description)
+                  );
+                  if (!isDuplicate) {
+                     const taskId = (Date.now() + Math.random()).toString();
+                     const newTask = { id: taskId, title: task.title, description: task.description, label: task.label };
+                     tasks["todo"].push(newTask);
+                     const taskElement = createTaskElement(newTask);
+                     document.getElementById("todo").appendChild(taskElement);
+                     added++;
+                  }
+                });
+                saveTasks();
+                if (added === 0) {
+                  alert("Aucune nouvelle tâche ajoutée (toutes étaient déjà présentes ou invalides).");
+                }
+             } catch (e) {
+                alert("Erreur lors de la lecture du fichier JSON : format invalide !");
+             }
+          };
+          reader.readAsText(file);
+          fileInput.value = "";
+        }
+
+        window.onload = loadTasks;
+     </script>
+  </body>
+  </html>
+    `,
   /**
    * Build script template.
    * @param {string} - The name of the project.
    * @returns {string} The build script content.
    */
-  scripts: () => `
+  SCRIPT: () => `
 const fs = require('fs').promises;
 const path = require('path');
 const ora = require('ora');
@@ -836,35 +818,24 @@ async function build() {
       path.join(process.cwd(), 'README.md'),
       path.join(distPath, 'README.md')
     );
-
-    // Copier le dossier public (css, js, assets, pages, trello)
-    await fs.cp(
-      path.join(process.cwd(), 'public'),
-      path.join(distPath, 'public'),
-      { recursive: true }
+    await fs.copyFile(
+      path.join(process.cwd(), 'favicon.ico'),
+      path.join(distPath, 'favicon.ico')
     );
 
-    // Générer un fichier manifest.json (optionnel, pour PWA)
-    const manifest = {
-      name: process.env.npm_package_name || 'Mon Projet',
-      short_name: process.env.npm_package_name || 'Projet',
-      start_url: '/',
-      display: 'standalone',
-      background_color: '#ffffff',
-      theme_color: '#343a40',
-      icons: [
-        {
-          src: '/public/assets/images/favicon.png',
-          sizes: '32x32',
-          type: 'image/png'
-        }
-      ]
-    };
-    await fs.writeFile(
-      path.join(distPath, 'manifest.json'),
-      JSON.stringify(manifest, null, 2)
-    );
-
+    const exists = await fs
+      .access(path.join(process.cwd(), 'public'))
+      .then(() => true)
+      .catch(() => false);
+    if (exists) {
+      // Copier le dossier public (css, js, assets, pages, trello)
+      await fs.cp(
+        path.join(process.cwd(), 'public'),
+        path.join(distPath, 'public'),
+        { recursive: true }
+      );
+    }
+      
     spinner.succeed('Projet construit avec succès dans dist/.');
   } catch (error) {
     spinner.fail(\`Échec de la construction : \${error.message}\`);
@@ -874,6 +845,100 @@ async function build() {
 
 build();
   `,
+  DEPLOY: () => `
+async function deploy() {
+  const { exec } = require('child_process');
+  const util = require('util');
+  const execAsync = util.promisify(exec);
+  const fs = require('fs').promises;
+  const path = require('path');
+import { defineConfig } from 'vite';
+
+  const dist_path = path.join(process.cwd(), 'dist');
+
+  // Vérifier si le dossier dist existe
+  try {
+    const stat = await fs.stat(dist_path);
+    if (!stat.isDirectory()) {
+      console.error('Le chemin dist/ existe mais ce n\\'est pas un dossier.');
+      process.exit(1);
+    }
+  } catch (err) {
+    console.error(
+      'Le dossier dist/ n\\'existe pas. Veuillez le générer avant de déployer.'
+    );
+    process.exit(1);
+  }
+
+  // Infos sur le déploiement
+  const { stdout: remoteUrl } = await execAsync(
+    'git config --get remote.origin.url'
+  );
+  let match = remoteUrl.trim().match(/github\\.com[:/](.+?)\\/(.+?)(\\.git)?$/);
+  let siteUrl = '';
+  if (match) {
+    const user = match[1];
+    const repo = match[2].replace(/\\.git$/, '');
+    siteUrl = \`https://\${user}.github.io/\${repo}/\`;
+  }
+  console.log(\`Remote : \${remoteUrl.trim()}\`);
+  // Aller sur master
+  await execAsync('git checkout master');
+
+  // Copier le contenu de dist/ à la racine
+  async function copyDir(src, dest) {
+    await fs.mkdir(dest, { recursive: true });
+    const entries = await fs.readdir(src, { withFileTypes: true });
+    for (let entry of entries) {
+      const srcPath = path.join(src, entry.name);
+      const destPath = path.join(dest, entry.name);
+      if (entry.isDirectory()) {
+        await copyDir(srcPath, destPath);
+      } else {
+        await fs.copyFile(srcPath, destPath);
+      }
+    }
+  }
+  await copyDir(dist_path, process.cwd());
+
+  // Ajouter, commit et push
+  await execAsync('git add .');
+  await execAsync('git commit -m "Déploiement sur master" --allow-empty');
+  await execAsync('git push origin master --force');
+
+  console.log('Projet déployé sur la branche master !');
+  if (siteUrl) console.log(\`URL : \${siteUrl}\`);
+}
+
+deploy();
+  `,
+  TASK: () =>
+    `[
+  {
+    "title": "Développer la navbar de",
+    "description": "Navigation responsive",
+    "label": "todo"
+  },
+  {
+    "title": "Ajouter le CSS global",
+    "description": "Fichier style.css",
+    "label": "in-progress"
+  },
+  {
+    "title": "Corriger les bugs JS",
+    "description": "Script de gestion du formulaire",
+    "label": "done"
+  }
+]`,
+  VITE: () => `
+  export default defineConfig({
+    root: './',
+    server: {
+      open: true,
+      port: 5173,
+    },
+  });
+`,
 };
 
 module.exports = TEMPLATES;

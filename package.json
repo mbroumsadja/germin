@@ -1,7 +1,7 @@
 {
   "name": "germin",
-  "version": "1.0.3",
-  "description": "Un mini framework CLI pour générer des projets web statiques avec HTML, CSS, JS et une app Trello intégrée pour la gestion des tâches",
+  "version": "1.0.5",
+  "description": "Un mini framework CLI pour générer des projets web statiques avec HTML, CSS, JS et une app x intégrée pour la gestion des tâches",
   "main": "src/index.js",
   "type": "commonjs",
   "bin": {
@@ -42,8 +42,6 @@
     "html",
     "css",
     "javascript",
-    "trello",
-    "task management",
     "mini framework"
   ],
   "author": "MBROUMSADJA EMMANUEL",

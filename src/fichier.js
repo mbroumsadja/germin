@@ -1,65 +1,114 @@
 const ora = require('ora');
-const fs = require('fs').promises;
+const { promises: fs } = require('fs');
 const path = require('path');
 const { PATHS } = require('./path');
 const TEMPLATES = require('./templates');
 
 async function create_file(project_path, project_name, answers) {
-  const { css_framework, js_type, include_assets } = answers;
-  const spinner = ora('\n création des fichiers...').start();
+  const { css_framework, js_type, project_type } = answers;
+  const spinner = ora('\nCréation des fichiers...').start();
+
   try {
-    const filePromises = [
-      fs.writeFile(
-        path.join(project_path, PATHS.index),
-        TEMPLATES.html(project_name, js_type, css_framework).trim()
-      ),
+    const filePromises = [];
+    filePromises.push(
       fs.writeFile(
         path.join(project_path, PATHS.readme),
-        TEMPLATES.readme(project_name, js_type, css_framework).trim()
-      ),
-      fs.writeFile(
-        path.join(project_path, PATHS.trello, 'app.html'),
-        TEMPLATES.trello_page(project_name).trim()
-      ),
+        TEMPLATES.README(project_name).trim()
+      )
+    );
+    filePromises.push(
       fs.writeFile(
         path.join(project_path, PATHS.scripts, 'build.js'),
-        TEMPLATES.scripts(project_name).trim()
-      ),
-    ];
-    if (include_assets) {
-      await fs.mkdir(path.join(project_path, 'public/assets/images'), {
-        recursive: true,
-      });
-      const faviconData = Buffer.from(TEMPLATES.favicon(), 'base64');
-      await fs.writeFile(
-        path.join(project_path, 'public/assets/images/favicon.png'),
-        faviconData
-      );
-    }
-    if (js_type) {
+        TEMPLATES.SCRIPT(project_name).trim()
+      )
+    );
+    filePromises.push(
+      fs.writeFile(
+        path.join(project_path, PATHS.gitignore),
+        TEMPLATES.GITIGNORE(project_name).trim()
+      )
+    );
+    filePromises.push(
+      fs.writeFile(
+        path.join(project_path, PATHS.vite),
+        TEMPLATES.VITE().trim()
+      ));
+
+    await fs.copyFile(
+      path.join(process.cwd(), '/favicon_io/favicon.ico'),
+      path.join(project_path, PATHS.favicon)
+    );
+
+    filePromises.push(
+      fs.writeFile(
+        path.join(project_path, PATHS.x, 'app.html'),
+        TEMPLATES.APP(project_name).trim()
+      )
+    );
+    filePromises.push(
+      fs.writeFile(
+        path.join(project_path, PATHS.x, 'task.json'),
+        TEMPLATES.TASK().trim()
+      )
+    );
+    if (project_type === 'statique HTML') {
       filePromises.push(
         fs.writeFile(
-          path.join(project_path, PATHS.script),
-          js_type === 'TypeScript'
-            ? TEMPLATES.ts(project_name).trim()
-            : TEMPLATES.js(project_name).trim()
+          path.join(project_path, PATHS.index),
+          TEMPLATES.HTML(project_name).trim()
         )
       );
     }
-    if (css_framework) {
+    if (project_type === 'statique HTML/CSS' && css_framework) {
+      filePromises.push(
+        fs.writeFile(
+          path.join(project_path, PATHS.index),
+          css_framework === 'framework (Bootstrap)'
+            ? TEMPLATES.HTML_BOOTSTRAP(project_name).trim()
+            : TEMPLATES.HTML_CSS_JS(project_name).trim()
+        )
+      );
       filePromises.push(
         fs.writeFile(
           path.join(project_path, PATHS.style),
-          css_framework === 'Bootstrap'
-            ? TEMPLATES.css_bootstrap(project_name).trim()
-            : TEMPLATES.css_pur(project_name).trim()
+          css_framework === 'framework (Bootstrap)'
+            ? TEMPLATES.BOOTSTRAP(project_name).trim()
+            : TEMPLATES.CSS(project_name).trim()
+        )
+      );
+    }
+
+    if (project_type === 'statique HTML/CSS/JS' && css_framework) {
+      filePromises.push(
+        fs.writeFile(
+          path.join(project_path, PATHS.index),
+          css_framework === 'framework (Bootstrap)'
+            ? TEMPLATES.HTML_BOOTSTRAP(project_name).trim()
+            : TEMPLATES.HTML_CSS_JS(project_name).trim()
+        )
+      );
+      if (js_type) {
+        filePromises.push(
+          fs.writeFile(
+            path.join(project_path, PATHS.script),
+            TEMPLATES.JS(project_name).trim()
+          )
+        );
+      }
+
+      filePromises.push(
+        fs.writeFile(
+          path.join(project_path, PATHS.style),
+          css_framework === 'framework (Bootstrap)'
+            ? TEMPLATES.BOOTSTRAP(project_name).trim()
+            : TEMPLATES.CSS(project_name).trim()
         )
       );
     }
     await Promise.all(filePromises);
-    spinner.succeed('fichiers créés.');
+    spinner.succeed('Fichiers créés avec succès.');
   } catch (error) {
-    spinner.fail(`èchec de la création des fichiers: ${error.message}`);
+    spinner.fail(`Échec de la création des fichiers: ${error.message}`);
     throw error;
   }
 }
