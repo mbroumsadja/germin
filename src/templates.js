@@ -37,7 +37,7 @@ const TEMPLATES = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${project_name}</title>
   <link rel="stylesheet" href="public/css/style.css">
-  <meta name="theme-color" content="#32b143"/>
+  <meta name="theme-color" content="#000"/>
 </head>
 <body>
   <header>
@@ -67,7 +67,7 @@ const TEMPLATES = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${project_name}</title>
   <link rel="stylesheet" href="public/css/style.css">
-  <meta name="theme-color" content="#32b143" />
+  <meta name="theme-color" content="#000" />
 </head>
 <body>
   <header>
@@ -99,7 +99,7 @@ const TEMPLATES = {
   <title>${project_name}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="public/css/style.css">
-  <meta name="theme-color" content="#32b143" />
+  <meta name="theme-color" content="#000" />
   <style>
     :root {
       --bs-primary: #333;
@@ -176,7 +176,7 @@ const TEMPLATES = {
    --primary-color: #242424;
   --background-color:rgba(6, 54, 32, 0.863);;
   --text-color: #333;
-  --footer-bg: #32b143;
+  --footer-bg: #000000;
 }
 
 body {
@@ -268,9 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {string} project_name - The name of the project.
    * @returns {string} The README content.
    */
-  README: (
-    project_name,
-  ) => `
+  README: (project_name) => `
 # ${project_name}
 
 ## Bienvenue dans votre projet web statique !
@@ -815,10 +813,16 @@ async function build() {
       path.join(process.cwd(), 'README.md'),
       path.join(distPath, 'README.md')
     );
-    await fs.copyFile(
-      path.join(process.cwd(), 'favicon.ico'),
-      path.join(distPath, 'favicon.ico')
-    );
+ const exist = await fs
+      .access(path.join(process.cwd(), "favicon.ico"))
+      .then(() => true)
+      .catch(() => false);
+    if (exist) {
+      await fs.copyFile(
+        path.join(process.cwd(), "favicon.ico"),
+        path.join(distPath, "favicon.ico")
+      );
+    }
 
     const exists = await fs
       .access(path.join(process.cwd(), 'public'))
@@ -849,7 +853,6 @@ async function deploy() {
   const execAsync = util.promisify(exec);
   const fs = require('fs').promises;
   const path = require('path');
-import { defineConfig } from 'vite';
 
   const dist_path = path.join(process.cwd(), 'dist');
 
@@ -901,7 +904,8 @@ import { defineConfig } from 'vite';
   // Ajouter, commit et push
   await execAsync('git add .');
   await execAsync('git commit -m "Déploiement sur master" --allow-empty');
-  await execAsync('git push origin master --force');
+  await execAsync('git push origin master');
+  await execAsync('gh-pages -d dist');
 
   console.log('Projet déployé sur la branche master !');
   if (siteUrl) console.log(\`URL : \${siteUrl}\`);
@@ -928,6 +932,8 @@ deploy();
   }
 ]`,
   VITE: () => `
+  const {defineConfig} = require('vite');
+
   export default defineConfig({
     root: './',
     server: {

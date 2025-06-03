@@ -1,11 +1,11 @@
 {
   "name": "germin",
-  "version": "1.0.9",
+  "version": "1.1.2",
   "description": "Un mini framework CLI pour dévélopper des sites web statiques avec HTML, CSS, JS et une app x intégrée pour la gestion des tâches",
   "main": "src/index.js",
   "type": "commonjs",
   "bin": {
-    "germin": "./bin/index.js"
+    "germin": "bin/index.js"
   },
   "scripts": {
     "dev": "node bin/index.js",
@@ -64,9 +64,5 @@
     "trailingComma": "es5",
     "singleQuote": true,
     "printWidth": 80
-  },
-  "publishConfig": {
-  "registry": "https://npm.pkg.github.com/"
-}
-
+  }
 }

@@ -21,7 +21,8 @@ async function create_package_json(project_path, project_name, answers) {
     version: '1.0.0',
     description: `${project_name} a été généré par Germin`,
     scripts: {
-      dev: 'vite',
+      dev: 'vite --host',
+      start: 'live-server --port=3000 --host=localhost',
       build: 'node ./x/scripts/build.js',
       preview: 'vite preview',
       deploy: 'node ./x/scripts/deploy.js',
@@ -34,6 +35,7 @@ async function create_package_json(project_path, project_name, answers) {
       ...(css_framework === 'framework (Bootstrap)'
         ? { bootstrap: '^5.3.3' }
         : {}),
+      'live-server': '^1.2.2'
     },
   };
   try {

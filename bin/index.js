@@ -6,7 +6,7 @@ const figlet = require('figlet');
 const ora = require('ora'); 
 
 program
-  .version('1.0.9')
+  .version('1.1.2')
   .description(
     chalk.cyan(
       `${figlet.textSync('Germin', { font: 'Ghost' })}`
