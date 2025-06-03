@@ -64,5 +64,9 @@
     "trailingComma": "es5",
     "singleQuote": true,
     "printWidth": 80
-  }
+  },
+  "publishConfig": {
+  "registry": "https://npm.pkg.github.com/"
+}
+
 }
