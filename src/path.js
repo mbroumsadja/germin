@@ -12,9 +12,6 @@ const PATHS = {
   script: 'public/js/script.js',
   readme: 'README.md',
   task: 'x/task.json',
-  image_1: 'public/assets/images/germin-512.png',
-  image_2: 'public/assets/images/germin-192.png',
-  favicon: 'favicon.ico',
   gitignore: '.gitignore',
   vite: 'vite.config.js',
 };

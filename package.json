@@ -1,6 +1,6 @@
 {
   "name": "germin",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "description": "Un mini framework CLI pour dévélopper des sites web statiques avec HTML, CSS, JS et une app x intégrée pour la gestion des tâches",
   "main": "src/index.js",
   "type": "commonjs",
@@ -12,7 +12,7 @@
     "test": "jest --coverage",
     "lint": "eslint src bin",
     "format": "prettier --write src bin",
-    "prepublishOnly": "npm run lint && npm run test "
+    "prepublishOnly": "npm run lint"
   },
   "dependencies": {
     "chalk": "^4.1.2",

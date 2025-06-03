@@ -78,14 +78,6 @@ async function create_optional_directories(project_path, optionel) {
     await fs.mkdir(path.join(project_path, PATHS.assets, 'images'), {
       recursive: true,
     });
-    await fs.copyFile(
-      path.join(process.cwd(), '/favicon_io/android-chrome-512x512.png'),
-      path.join(project_path, PATHS.image_1)
-    );
-    await fs.copyFile(
-      path.join(process.cwd(), '/favicon_io/android-chrome-192x192.png'),
-      path.join(project_path, PATHS.image_2)
-    );
   }
 }
 

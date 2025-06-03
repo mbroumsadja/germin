@@ -7,7 +7,6 @@ const TEMPLATES = {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${project_name}</title>
-  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
   <header>
@@ -38,7 +37,6 @@ const TEMPLATES = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${project_name}</title>
   <link rel="stylesheet" href="public/css/style.css">
-  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
   <meta name="theme-color" content="#32b143"/>
 </head>
 <body>
@@ -69,7 +67,6 @@ const TEMPLATES = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${project_name}</title>
   <link rel="stylesheet" href="public/css/style.css">
-  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
   <meta name="theme-color" content="#32b143" />
 </head>
 <body>
@@ -365,7 +362,7 @@ Votre projet sera déployé sur GitHub Pages.
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Kanban - ${project_name}</title>
-     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    
      <link rel="stylesheet" href="/public/css/style.css">
   <style>
         body {

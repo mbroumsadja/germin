@@ -1,8 +1,8 @@
-# Germin 🌱 — Générateur de Projets Web Statiques
+# Germin 🌱 
 
-**Version 1.0.5**
+**Version 1.0.9**
 
-Germin est un outil CLI moderne et rapide pour générer des projets web statiques avec une structure propre, un système de tâches Kanban intégré, et des options de personnalisation via une interface interactive , tout en gérant le déploiement.
+Germin est conçu pour les débutants souhaitant apprendre le développement web. Grâce à son interface en ligne de commande moderne et rapide, il permet de générer facilement des projets web statiques avec une structure claire et professionnelle. Son système de tâches Kanban intégré aide à organiser l'apprentissage et le développement étape par étape. Germin propose aussi des options de personnalisation interactives et facilite le déploiement, ce qui en fait un excellent point de départ pour découvrir les bases du développement web tout en adoptant de bonnes pratiques dès le début.
 
 ---
 
@@ -10,7 +10,7 @@ Germin est un outil CLI moderne et rapide pour générer des projets web statiqu
 
 - 📁 Génération d’une arborescence claire (HTML, CSS, JS)
 - 🎨 Choix entre CSS pur ou Bootstrap
-- ⚙️ Support JavaScript ou 
+- ⚙️ Support JavaScript
 - 🖼️ Dossiers optionnels : `assets/` (images), `pages/`
 - ✅ Application **Kanban** intégrée pour la gestion de tâches (drag & drop, chronomètre, import/export)
 - 🐙 Intégration Git + GitHub Pages
@@ -23,7 +23,7 @@ Germin est un outil CLI moderne et rapide pour générer des projets web statiqu
 
 ```bash
 npm install -g germin
-```
+![Logo Germin](./favicon_io/favicon-16x16.png)
 
 ---
 
@@ -49,9 +49,6 @@ cd mon-projet
 npm install
 npm run dev
 ```
-
----
-
 ## 🔧 Structure du projet
 
 ```
@@ -74,7 +71,6 @@ mon-projet/
 ├── package.json
 ├── README.md
 ├── vite.config.js
-├── favicon.ico
 └── .gitignore
 ```
 
@@ -82,7 +78,7 @@ mon-projet/
 
 ## ✅ Application Kanban intégrée
 
-Accessible via : `http://localhost:5173${project_name}`
+Accessible via : `http://localhost:5173<nom du project>`
 
 ### Fonctions :
 - Ajouter, modifier, supprimer des tâches
@@ -125,7 +121,7 @@ Vous pouvez importer un fichier `.json` contenant vos tâches. Ce fichier doit �
 ```
 
 ### Importation :
-1. Allez sur `http://localhost:5173${project_name}`
+1. Allez sur `http://localhost:5173<nom du project>`
 2. Cliquez sur **"Importer JSON"**
 3. Sélectionnez votre fichier
 4. Les tâches apparaissent dans leurs colonnes respectives

@@ -34,11 +34,6 @@ async function create_file(project_path, project_name, answers) {
         TEMPLATES.VITE().trim()
       ));
 
-    await fs.copyFile(
-      path.join(process.cwd(), '/favicon_io/favicon.ico'),
-      path.join(project_path, PATHS.favicon)
-    );
-
     filePromises.push(
       fs.writeFile(
         path.join(project_path, PATHS.x, 'app.html'),

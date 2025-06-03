@@ -117,7 +117,7 @@ async function create_project() {
   let project_path = '';
   try {
     check_requisites();
-    console.log(chalk.green(figlet.textSync('Germin', { font: 'Ghost' })));
+    console.log(chalk.cyan(figlet.textSync('Germin', { font: 'Ghost' })));
     console.log(
       
       'Créez des sites web statiques avec HTML, CSS, JS et une app Kanban.\n' +
@@ -145,7 +145,7 @@ async function create_project() {
     console.log('3. npm install');
     console.log('3. npm run dev');
     console.log(
-      '4. Ouvrez http://localhost:5173 (ou http://localhost:5173${project_name} pour la gestion des tâches)'
+      `4. Ouvrez http://localhost:5173 (ou http://localhost:5173/${project_name} pour la gestion des tâches)`
     );
     console.log('Consultez le README.md pour plus de détails.');
   } catch (error) {
