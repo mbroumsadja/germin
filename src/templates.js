@@ -293,7 +293,7 @@ Ce projet a été généré avec **Germin**, un outil CLI pour créer rapidement
 Pour prévisualiser votre projet localement :
 
 \`\`\`bash
-npm run dev
+npm run start
 \`\`\`
 
 - Ouvre votre navigateur à \`http://localhost:3000\` pour voir la page principale.
@@ -331,8 +331,7 @@ Votre projet sera déployé sur GitHub Pages.
   - Personnalisez \`public/css/style.css\` pour les styles.
   - Ajoutez du code dans \`public/js/script.js\` pour les interactions dynamiques.
   - Créez des pages supplémentaires dans \`public/pages/\` si activé.
-  - Gérez vos tâches dans \`public/trello/app.html\`.
-  - Remplacez \`public/assets/images/favicon.png\` par votre propre favicon si nécessaire.
+  - Gérez vos tâches dans \`x/app.html\`.
 
 - **Ajouter des ressources** :
   - Placez les images ou autres fichiers dans \`public/assets/images/\` si activé.
@@ -564,7 +563,7 @@ dist/
         </div>
      </div>
      <footer>
-        <p>${new Date().getFullYear()} ${project_name}</p>
+        <p>© 2025 ${project_name}</p>
      </footer>
      <script>
         // Utiliser une clé unique pour chaque projet dans le cache
@@ -666,13 +665,6 @@ dist/
           if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
              button.parentElement.remove();
              ["todo", "in-progress", "done"].forEach(columnId => {
-                tasks[columnId] = tasks[columnId].filter(task => task.id !==
-        }
-
-        function deleteTask(button, taskId) {
-          if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
-             button.parentElement.remove();
-             ["todo", "in-progress", "done"].forEach(columnId => {
                 tasks[columnId] = tasks[columnId].filter(task => task.id !== taskId);
              });
              saveTasks();
@@ -730,7 +722,7 @@ dist/
              return;
           }
 
-          const taskId = 'task-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+          const taskId = Date.now().toString() + Math.random().toString(36).substr(2, 9);
           const task = { id: taskId, title, description: desc, label };
           tasks["todo"].push(task);
           const taskElement = createTaskElement(task);
@@ -754,7 +746,7 @@ dist/
                   return;
                 }
                 let added = 0;
-               uploadedTasks.forEach((task, index) => { 
+                uploadedTasks.forEach(task => {
                   if (!task.title || !task.description || !task.label) {
                      return;
                   }
@@ -763,7 +755,7 @@ dist/
                      column.some(t => t.title === task.title && t.description === task.description)
                   );
                   if (!isDuplicate) {
-                     const taskId = 'task-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 9) + '-' + index; // Standardized ID
+                     const taskId = (Date.now() + Math.random()).toString();
                      const newTask = { id: taskId, title: task.title, description: task.description, label: task.label };
                      tasks["todo"].push(newTask);
                      const taskElement = createTaskElement(newTask);
@@ -772,11 +764,9 @@ dist/
                   }
                 });
                 saveTasks();
-                // Improved messaging
-                if (added === 0 && uploadedTasks.length > 0) {
-                  alert("Aucune nouvelle tâche ajoutée. Toutes les tâches du fichier étaient soit déjà présentes, soit invalides.");
-                } else if (added > 0) {
-                  alert(added + ' tâche(s) ajoutée(s) avec succès.');
+                if (added === 0) {
+                  alert("Aucune nouvelle tâche ajoutée (toutes étaient déjà présentes ou invalides).");
+                }
              } catch (e) {
                 alert("Erreur lors de la lecture du fichier JSON : format invalide !");
              }
@@ -866,18 +856,18 @@ async function deploy() {
   try {
     const stat = await fs.stat(dist_path);
     if (!stat.isDirectory()) {
-      console.error("Le chemin dist/ existe mais ce nest pas un dossier.");
+      console.error('Le chemin dist/ existe mais ce nest pas un dossier.');
       process.exit(1);
     }
   } catch (err) {
-    console.error('Le dossier dist/ n'existe pas. Veuillez le générer avant de déployer.',err);
+    console.error('Le dossier dist/ n existe pas. Veuillez le générer avant de déployer.',err);
     process.exit(1);
   }
 
   // Récupérer l'URL du dépôt distant
   const { stdout: remoteUrl } = await execAsync('git config --get remote.origin.url');
 
-  let match = remoteUrl.trim().match(github.com[:/](.+?)\\/(.+?)(.git)?$/);
+  let match = remoteUrl.trim().match(/github\\.com[:\\/](.+?)\\/(.+?)(\\.git)?$/);
   let siteUrl = '';
   if (match) {
     const user = match[1];
@@ -911,15 +901,15 @@ deploy();
   }
 ]`,
   VITE: () => `
-  const {defineConfig} = require('vite');
+const { defineConfig } = require('vite');
 
-  export default defineConfig({
-    root: './',
-    server: {
-      open: true,
-      port: 5173,
-    },
-  });
+module.exports = defineConfig({
+  root: './',
+  server: {
+    open: true,
+    port: 5173,
+  },
+});
 `,
 };
 

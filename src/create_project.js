@@ -25,7 +25,7 @@ async function create_package_json(project_path, project_name, answers) {
   const package_json = {
     name: project_name,
     version: '1.0.0',
-    type: 'module',
+    type: 'commonjs',
     description: `${project_name} a été généré par Germin`,
     scripts: {
       dev: 'vite --host',

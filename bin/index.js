@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { program } = require('commander');
 const { create_project } = require('../src/create_project');
 const chalk = require('chalk');
@@ -5,7 +7,7 @@ const figlet = require('figlet');
 const ora = require('ora'); 
 
 program
-  .version('1.1.3', '-v, --version', 'Afficher la version de Germin')
+  .version('1.1.5', '-v, --version', 'Afficher la version de Germin')
   .name('germin')
   .usage('<command> [options]')
   .helpOption('-h, --help', 'Afficher l\'aide')

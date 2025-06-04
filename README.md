@@ -1,6 +1,6 @@
 # Germin 🌱 
 
-**Version 1.1.3**
+**Version 1.1.5**
 
 Germin est conçu pour les débutants souhaitant apprendre le développement web. Grâce à son interface en ligne de commande moderne et rapide, il permet de générer facilement des projets web statiques avec une structure claire et professionnelle. Son système de tâches Kanban intégré aide à organiser l'apprentissage et le développement étape par étape. Germin propose aussi des options de personnalisation interactives et facilite le déploiement, ce qui en fait un excellent point de départ pour découvrir les bases du développement web tout en adoptant de bonnes pratiques dès le début.
 
@@ -53,6 +53,7 @@ npm run dev
 
 ```
 mon-projet/
+|
 ├── index.html
 ├── public/
 │   ├── css/
