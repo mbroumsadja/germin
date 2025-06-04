@@ -1,6 +1,6 @@
 {
   "name": "germin",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Un mini framework CLI pour dévélopper des sites web statiques avec HTML, CSS, JS et une app x intégrée pour la gestion des tâches",
   "main": "src/index.js",
   "type": "commonjs",

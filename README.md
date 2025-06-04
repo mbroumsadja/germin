@@ -1,6 +1,6 @@
 # Germin 🌱 
 
-**Version 1.1.2**
+**Version 1.1.3**
 
 Germin est conçu pour les débutants souhaitant apprendre le développement web. Grâce à son interface en ligne de commande moderne et rapide, il permet de générer facilement des projets web statiques avec une structure claire et professionnelle. Son système de tâches Kanban intégré aide à organiser l'apprentissage et le développement étape par étape. Germin propose aussi des options de personnalisation interactives et facilite le déploiement, ce qui en fait un excellent point de départ pour découvrir les bases du développement web tout en adoptant de bonnes pratiques dès le début.
 
@@ -22,7 +22,7 @@ Germin est conçu pour les débutants souhaitant apprendre le développement web
 ## 📦 Installation
 
 ```bash
-npm install -g germin
+npm install -g germin@latest
 ```
 
 ## 🚀 Utilisation
@@ -34,6 +34,7 @@ germin create mon-projet
 ```
 
 Répondez aux questions guidées pour choisir :
+
 - Le langage (HTML , HTML/CSS ou HTML/CSS/JS)
 - Le framework CSS (cascading style sheet (CSS) ou framework (Bootstrap))
 - Le Javascript 
@@ -47,6 +48,7 @@ cd mon-projet
 npm install
 npm run dev
 ```
+
 ## 🔧 Structure du projet
 
 ```
@@ -64,6 +66,7 @@ mon-projet/
 │   ├── app.html
 │       └── scripts/
 │           └── build.js
+|           └── deploy.js
 |       └── task.json
 |
 ├── package.json
@@ -76,9 +79,10 @@ mon-projet/
 
 ## ✅ Application Kanban intégrée
 
-Accessible via : `http://localhost:5173<nom du project>`
+Accessible via : `http://localhost:3000/<nom du project>/x/app`
 
 ### Fonctions :
+
 - Ajouter, modifier, supprimer des tâches
 - Glisser-déposer entre les colonnes "À faire", "En cours", "Terminé"
 - Chronomètre pour suivre le temps investi
@@ -119,7 +123,8 @@ Vous pouvez importer un fichier `.json` contenant vos tâches. Ce fichier doit �
 ```
 
 ### Importation :
-1. Allez sur `http://localhost:5173<nom du project>`
+
+1. Allez sur `http://localhost:3000/<nom du project>/x/app.html`
 2. Cliquez sur **"Importer JSON"**
 3. Sélectionnez votre fichier
 4. Les tâches apparaissent dans leurs colonnes respectives
@@ -128,11 +133,12 @@ Vous pouvez importer un fichier `.json` contenant vos tâches. Ce fichier doit �
 
 ## ⚙️ Scripts disponibles
 
-| Script           | Description                                                          |
-|------------------|----------------------------------------------------------------------|
-| `npm run dev`    | Lance un serveur local (`localhost:5173`)                            |
-| `npm run build`  | Génère une version optimisée dans `dist/`                            |
-| `npm run deploy` | Déploie le projet sur GitHub Pages                                   |
+| Script           | Description                               |
+| ---------------- | ----------------------------------------- |
+| `npm run dev`    | Lance un serveur local (`localhost:5173`) |
+| `npm run start`  | Lance un serveur local (`localhost:3000`) |
+| `npm run build`  | Génère une version optimisée dans `dist/` |
+| `npm run deploy` | Déploie le projet sur GitHub Pages        |
 
 ---
 
@@ -149,6 +155,7 @@ Voir `CONTRIBUTING.md` pour plus de détails.
 ---
 
 ## 📄 Licence
+
 
 Ce projet est sous licence **MIT**. Voir le fichier `LICENSE`.
 

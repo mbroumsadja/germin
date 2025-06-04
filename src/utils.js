@@ -15,7 +15,7 @@ function check_requisites() {
     execSync('node --version', { stdio: 'ignore' });
   } catch {
     throw new Error(
-      'Node.js n`est pas installé. Installez-le depuis https://nodejs.org.'
+      'Node.js n\'est pas installé. Installez-le depuis https://nodejs.org.'
     );
   }
 
@@ -23,7 +23,7 @@ function check_requisites() {
     execSync('npm --version', { stdio: 'ignore' });
   } catch {
     throw new Error(
-      'npm n`est pas installé. Installez-le depuis https://nodejs.org.'
+      'npm n\'est pas installé. Installez-le depuis https://nodejs.org.'
     );
   }
 
@@ -31,7 +31,7 @@ function check_requisites() {
     execSync('git --version', { stdio: 'ignore' });
   } catch {
     throw new Error(
-      'Git n`est pas installé. Installez-le depuis https://git-scm.com.'
+      'Git n\'est pas installé. Installez-le depuis https://git-scm.com.'
     );
   }
 }

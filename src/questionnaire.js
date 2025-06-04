@@ -31,14 +31,14 @@ async function prompt_user() {
       type: 'list',
       name: 'project_type',
       message: chalk.cyan('🌐 Quel type de projet voulez-vous créer ?'),
-      choices: ['statique HTML', 'statique HTML/CSS','statique HTML/CSS/JS'],
+      choices: ['statique HTML', 'statique HTML/CSS', 'statique HTML/CSS/JS'],
       default: 'statique HTML',
     },
     {
       type: 'list',
       name: 'js_type',
       message: chalk.cyan('⚙️ Voulez-vous allez faire du Javascript ?'),
-      choices: ['javascript','javascript/ASYNC','javascript/FETCH'],
+      choices: ['javascript', 'javascript/ASYNC', 'javascript/FETCH'],
       when: (answers) => answers.project_type === 'statique HTML/CSS/JS',
     },
     {
@@ -47,13 +47,20 @@ async function prompt_user() {
       message: chalk.cyan('🎨 Quel framework CSS voulez-vous utiliser ?'),
       choices: ['style sheet cascading (CSS)', 'framework (Bootstrap)'],
       default: 'style sheet cascading (CSS)',
-      when: (answers) => answers.project_type === 'statique HTML/CSS/JS' || answers.project_type === 'statique HTML/CSS',
+      when: (answers) =>
+        answers.project_type === 'statique HTML/CSS/JS' ||
+        answers.project_type === 'statique HTML/CSS',
     },
     {
-      type:'checkbox',
-      name:'optionel',
-      message:'Choisir une ou plusieurs options :',
-      choices:['pages (public/pages)','images (public/assets/images)','initialiser git (git init)','creé un dépot github (<URL>)'],
+      type: 'checkbox',
+      name: 'optionel',
+      message: 'Choisir une ou plusieurs options :',
+      choices: [
+        'pages (public/pages)',
+        'images (public/assets/images)',
+        'initialiser git (git init)',
+        'créer un dépot github (<URL>)',
+      ],
       default: [],
     },
   ].filter(Boolean); // Supprimer les questions nulles (par exemple, project_name si fourni)

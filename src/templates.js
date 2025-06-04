@@ -1,7 +1,7 @@
 const TEMPLATES = {
   HTML: (project_name) =>
     `
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -13,7 +13,7 @@ const TEMPLATES = {
     <nav>
       <ul>
         <li><a href="#">Accueil</a></li>
-        <li><a href="/${project_name}/x/app">Trello</a></li>
+        <li><a href="#">About</a></li>
       </ul>
     </nav>
   </header>
@@ -22,7 +22,7 @@ const TEMPLATES = {
     <p>Ceci est votre premier projet web statique.</p>
   </main>
   <footer>
-    <p>© 2025 ${project_name}</p>
+    <p>${new Date().getFullYear()} ${project_name}</p>
   </footer>
 </body>
 </html>
@@ -30,7 +30,7 @@ const TEMPLATES = {
 
   HTML_CSS: (project_name) =>
     `
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -44,7 +44,7 @@ const TEMPLATES = {
     <nav>
       <ul>
         <li><a href="#">Accueil</a></li>
-        <li><a href="/${project_name}/x/app"></a></li>
+        <li><a href="#">About</a></li>
       </ul>
     </nav>
   </header>
@@ -53,14 +53,14 @@ const TEMPLATES = {
     <p>Ceci est votre premier projet web statique.</p>
   </main>
   <footer>
-    <p>© 2025 ${project_name}</p>
+    <p>${new Date().getFullYear()} ${project_name}</p>
   </footer>
 </body>
 </html>`,
   BOOTSTRAP: () => '/* Bootstrap CSS CDN */',
   HTML_CSS_JS: (project_name) =>
     `
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -74,7 +74,7 @@ const TEMPLATES = {
     <nav>
       <ul>
         <li><a href="#">Accueil</a></li>
-        <li><a href="/${project_name}/x/app">Trello</a></li>
+        <li><a href="#">About</a></li>
       </ul>
     </nav>
   </header>
@@ -83,7 +83,7 @@ const TEMPLATES = {
     <p>Ceci est votre premier projet web statique.</p>
   </main>
   <footer>
-    <p>© 2025 ${project_name}</p>
+    <p>${new Date().getFullYear()} ${project_name}</p>
   </footer>
   <script src="./public/js/script.js" defer></script>
 </body>
@@ -91,7 +91,7 @@ const TEMPLATES = {
   `,
   HTML_BOOTSTRAP: (project_name) =>
     `
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -103,22 +103,18 @@ const TEMPLATES = {
   <style>
     :root {
       --bs-primary: #333;
-      --bs-light:rgba(6, 54, 32, 0.863);;
+      --bs-light:rgba(6, 54, 32, 0.863);
     }
-    
     body {
       background-color: var(--bs-light);
       font-family: 'Arial', sans-serif;
     }
-    
     .navbar-custom {
       background-color: var(--bs-primary) !important;
     }
-    
     .main-content {
       min-height: calc(100vh - 140px);
     }
-    
     .footer-custom {
       background-color: #ddd;
     }
@@ -131,12 +127,11 @@ const TEMPLATES = {
       <div class="container">
         <div class="navbar-nav mx-auto">
           <a class="nav-link text-white me-4" href="#">Accueil</a>
-          <a class="nav-link text-white" href="${project_name}/x/app">Trello</a>
+          <a class="nav-link text-white" href="#">About</a>
         </div>
       </div>
     </nav>
   </header>
-
   <!-- Main Content -->
   <main class="flex-grow-1 d-flex align-items-center justify-content-center main-content">
     <div class="container">
@@ -148,18 +143,16 @@ const TEMPLATES = {
       </div>
     </div>
   </main>
-
   <!-- Footer -->
   <footer class="footer-custom py-3 mt-auto">
     <div class="container">
       <div class="row">
         <div class="col text-center">
-          <p class="mb-0 text-muted">© 2025 ${project_name} Bootstrap</p>
+          <p class="mb-0 text-muted">${new Date().getFullYear()} ${project_name} Bootstrap</p>
         </div>
       </div>
     </div>
   </footer>
-
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
@@ -173,8 +166,8 @@ const TEMPLATES = {
 /* Styles for ${project_name} */
 
 :root {
-   --primary-color: #242424;
-  --background-color:rgba(6, 54, 32, 0.863);;
+  --primary-color: #242424;
+  --background-color:rgba(6, 54, 32, 0.863);
   --text-color: #333;
   --footer-bg: #000000;
 }
@@ -186,6 +179,9 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 header {
@@ -219,7 +215,7 @@ main {
   margin: 20px auto;
   padding: 0 20px;
   text-align: center;
-  min-height: 54vh;
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -234,9 +230,8 @@ footer {
   text-align: center;
   background-color: var(--footer-bg);
   color: var(--text-color);
-  position: fixed;
-  bottom: 0;
   width: 100%;
+  padding: 10px 0;
 }
 
 @media (max-width: 600px) {
@@ -246,8 +241,8 @@ footer {
   }
 }
   `,
-  JS: (project_name) => `    
-      // script.js for ${project_name}
+  JS: (project_name) => `
+// script.js for ${project_name}
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Bienvenue dans ${project_name} ! Le DOM est entièrement chargé et analysé.');
 
@@ -301,11 +296,11 @@ Pour prévisualiser votre projet localement :
 npm run dev
 \`\`\`
 
-- Ouvre votre navigateur à \`http://localhost:8080\` pour voir la page principale.
-- Visitez \`http://localhost:8080/trello\` pour accéder à l'application Kanban.
+- Ouvre votre navigateur à \`http://localhost:3000\` pour voir la page principale.
+- Visitez \`http://localhost:3000/x/app\` pour accéder à l'application Kanban.
 
 #### Gérer les tâches avec l'application Kanban
-- Accédez à \`http://localhost:8080/trello\`.
+- Accédez à \`http://localhost:3000/x/app\`.
 - **Ajoutez des tâches** : Remplissez le formulaire avec un titre, une description et une priorité (Urgent/Normal).
 - **Déplacez les tâches** : Glissez-déposez les tâches entre les colonnes "À faire", "En cours" et "Terminé".
 - **Suivez le temps investi** : Utilisez le chronomètre pour mesurer le temps passé sur le projet.
@@ -345,8 +340,10 @@ Votre projet sera déployé sur GitHub Pages.
 **Généré avec 💚 par Germin**
   `,
 
-  GITIGNORE: (project_name) => `//${project_name}
-  node_modules
+  GITIGNORE: () => `
+node_modules/
+package-lock.json
+dist/
   `,
   /**
    * HTML template for the Trello main page.
@@ -567,7 +564,7 @@ Votre projet sera déployé sur GitHub Pages.
         </div>
      </div>
      <footer>
-        <p>© 2025 ${project_name}</p>
+        <p>${new Date().getFullYear()} ${project_name}</p>
      </footer>
      <script>
         // Utiliser une clé unique pour chaque projet dans le cache
@@ -669,6 +666,13 @@ Votre projet sera déployé sur GitHub Pages.
           if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
              button.parentElement.remove();
              ["todo", "in-progress", "done"].forEach(columnId => {
+                tasks[columnId] = tasks[columnId].filter(task => task.id !==
+        }
+
+        function deleteTask(button, taskId) {
+          if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
+             button.parentElement.remove();
+             ["todo", "in-progress", "done"].forEach(columnId => {
                 tasks[columnId] = tasks[columnId].filter(task => task.id !== taskId);
              });
              saveTasks();
@@ -726,7 +730,7 @@ Votre projet sera déployé sur GitHub Pages.
              return;
           }
 
-          const taskId = Date.now().toString() + Math.random().toString(36).substr(2, 9);
+          const taskId = 'task-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
           const task = { id: taskId, title, description: desc, label };
           tasks["todo"].push(task);
           const taskElement = createTaskElement(task);
@@ -750,7 +754,7 @@ Votre projet sera déployé sur GitHub Pages.
                   return;
                 }
                 let added = 0;
-                uploadedTasks.forEach(task => {
+               uploadedTasks.forEach((task, index) => { 
                   if (!task.title || !task.description || !task.label) {
                      return;
                   }
@@ -759,7 +763,7 @@ Votre projet sera déployé sur GitHub Pages.
                      column.some(t => t.title === task.title && t.description === task.description)
                   );
                   if (!isDuplicate) {
-                     const taskId = (Date.now() + Math.random()).toString();
+                     const taskId = 'task-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 9) + '-' + index; // Standardized ID
                      const newTask = { id: taskId, title: task.title, description: task.description, label: task.label };
                      tasks["todo"].push(newTask);
                      const taskElement = createTaskElement(newTask);
@@ -768,9 +772,11 @@ Votre projet sera déployé sur GitHub Pages.
                   }
                 });
                 saveTasks();
-                if (added === 0) {
-                  alert("Aucune nouvelle tâche ajoutée (toutes étaient déjà présentes ou invalides).");
-                }
+                // Improved messaging
+                if (added === 0 && uploadedTasks.length > 0) {
+                  alert("Aucune nouvelle tâche ajoutée. Toutes les tâches du fichier étaient soit déjà présentes, soit invalides.");
+                } else if (added > 0) {
+                  alert(added + ' tâche(s) ajoutée(s) avec succès.');
              } catch (e) {
                 alert("Erreur lors de la lecture du fichier JSON : format invalide !");
              }
@@ -847,70 +853,43 @@ async function build() {
 build();
   `,
   DEPLOY: () => `
-async function deploy() {
-  const { exec } = require('child_process');
-  const util = require('util');
-  const execAsync = util.promisify(exec);
-  const fs = require('fs').promises;
-  const path = require('path');
+const { exec } = require('child_process');
+const util = require('util');
+const execAsync = util.promisify(exec);
+const fs = require('fs').promises;
+const path = require('path');
 
+async function deploy() {
   const dist_path = path.join(process.cwd(), 'dist');
 
   // Vérifier si le dossier dist existe
   try {
     const stat = await fs.stat(dist_path);
     if (!stat.isDirectory()) {
-      console.error('Le chemin dist/ existe mais ce n\\'est pas un dossier.');
+      console.error("Le chemin dist/ existe mais ce nest pas un dossier.");
       process.exit(1);
     }
   } catch (err) {
-    console.error(
-      'Le dossier dist/ n\\'existe pas. Veuillez le générer avant de déployer.'
-    );
+    console.error('Le dossier dist/ n'existe pas. Veuillez le générer avant de déployer.',err);
     process.exit(1);
   }
 
-  // Infos sur le déploiement
-  const { stdout: remoteUrl } = await execAsync(
-    'git config --get remote.origin.url'
-  );
-  let match = remoteUrl.trim().match(/github\\.com[:/](.+?)\\/(.+?)(\\.git)?$/);
+  // Récupérer l'URL du dépôt distant
+  const { stdout: remoteUrl } = await execAsync('git config --get remote.origin.url');
+
+  let match = remoteUrl.trim().match(github.com[:/](.+?)\\/(.+?)(.git)?$/);
   let siteUrl = '';
   if (match) {
     const user = match[1];
-    const repo = match[2].replace(/\\.git$/, '');
+    const repo = match[2].replace(/.git$/, '');
     siteUrl = \`https://\${user}.github.io/\${repo}/\`;
   }
-  console.log(\`Remote : \${remoteUrl.trim()}\`);
-  // Aller sur master
-  await execAsync('git checkout master');
-
-  // Copier le contenu de dist/ à la racine
-  async function copyDir(src, dest) {
-    await fs.mkdir(dest, { recursive: true });
-    const entries = await fs.readdir(src, { withFileTypes: true });
-    for (let entry of entries) {
-      const srcPath = path.join(src, entry.name);
-      const destPath = path.join(dest, entry.name);
-      if (entry.isDirectory()) {
-        await copyDir(srcPath, destPath);
-      } else {
-        await fs.copyFile(srcPath, destPath);
-      }
-    }
-  }
-  await copyDir(dist_path, process.cwd());
-
-  // Ajouter, commit et push
-  await execAsync('git add .');
-  await execAsync('git commit -m "Déploiement sur master" --allow-empty');
-  await execAsync('git push origin master');
+  // Déployer avec gh-pages
   await execAsync('gh-pages -d dist');
 
-  console.log('Projet déployé sur la branche master !');
-  if (siteUrl) console.log(\`URL : \${siteUrl}\`);
+  console.log('Déploiement terminé !');
+  if (siteUrl) console.log(\`lien vers votre site web : \${siteUrl}\`);
 }
-
 deploy();
   `,
   TASK: () =>

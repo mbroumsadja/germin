@@ -29,10 +29,8 @@ async function create_file(project_path, project_name, answers) {
       )
     );
     filePromises.push(
-      fs.writeFile(
-        path.join(project_path, PATHS.vite),
-        TEMPLATES.VITE().trim()
-      ));
+      fs.writeFile(path.join(project_path, PATHS.vite), TEMPLATES.VITE().trim())
+    );
 
     filePromises.push(
       fs.writeFile(

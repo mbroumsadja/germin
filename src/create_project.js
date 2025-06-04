@@ -14,11 +14,18 @@ const { create_file } = require('./fichier.js');
 const { PATHS } = require('./path.js');
 const execAsync = util.promisify(exec);
 
+const INTRO_MESSAGE =
+  'Créez des sites web statiques avec HTML, CSS, JS et une app Kanban.\n' +
+  chalk.cyan(
+    '🚀 Outil pour initier les débutants au développement web statique\n'
+  );
+
 async function create_package_json(project_path, project_name, answers) {
   const { css_framework } = answers;
   const package_json = {
     name: project_name,
     version: '1.0.0',
+    type: 'module',
     description: `${project_name} a été généré par Germin`,
     scripts: {
       dev: 'vite --host',
@@ -30,12 +37,16 @@ async function create_package_json(project_path, project_name, answers) {
     devDependencies: {
       vite: '^5.2.0',
       'gh-pages': '^6.0.0',
+      ...(answers.optionel &&
+      answers.optionel.includes('créer un dépot github (<URL>)')
+        ? { ora: '^5.4.1' }
+        : {}),
     },
     dependencies: {
       ...(css_framework === 'framework (Bootstrap)'
         ? { bootstrap: '^5.3.3' }
         : {}),
-      'live-server': '^1.2.2'
+      'live-server': '^1.2.2',
     },
   };
   try {
@@ -62,9 +73,9 @@ async function initialise_git(project_path, answers) {
       path.join(project_path, PATHS.gitignore),
       TEMPLATES.GITIGNORE(project_path)
     );
-    spinner.succeed(chalk.green('dépôt git initialisé.'));
+    spinner.succeed(chalk.whiteBright('dépôt git initialisé.'));
 
-    if (optionel.includes('creé un dépot github (<URL>)')) {
+    if (optionel.includes('créer un dépot github (<URL>)')) {
       // Crée le fichier deploy.js dans le dossier scripts
       await fs.writeFile(
         path.join(project_path, PATHS.scripts, 'deploy.js'),
@@ -120,13 +131,7 @@ async function create_project() {
   try {
     check_requisites();
     console.log(chalk.cyan(figlet.textSync('Germin', { font: 'Ghost' })));
-    console.log(
-      
-      'Créez des sites web statiques avec HTML, CSS, JS et une app Kanban.\n' +
-      chalk.cyan(
-        '🚀 Outil pour initier les débutants au développement web statique\n'
-      )
-    );
+    console.log(INTRO_MESSAGE);
 
     const answers = await prompt_user();
     const { project_name, js_type } = answers;
@@ -144,11 +149,9 @@ async function create_project() {
     );
     console.log(chalk.cyan('Prochaines étapes :'));
     console.log(`1. cd ${project_name}`);
-    console.log('3. npm install');
+    console.log('2. npm install');
     console.log('3. npm run dev');
-    console.log(
-      `4. Ouvrez http://localhost:5173 (ou http://localhost:5173/${project_name} pour la gestion des tâches)`
-    );
+    console.log('4. Ouvrez http://localhost:5173');
     console.log('Consultez le README.md pour plus de détails.');
   } catch (error) {
     if (project_path) await clean_up_on_error(project_path);
