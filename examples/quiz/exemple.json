@@ -1,0 +1,13 @@
+{
+  "id": "quiz",
+  "titre": "Le moteur de quiz",
+  "niveau": 2,
+  "type": "js",
+  "description": "Calcule un score, un pourcentage, une mention, et mélange les questions.",
+  "taches": [
+    { "titre": "Calculer le score", "description": "Compare les réponses aux bonnes réponses", "test": "calculerScore" },
+    { "titre": "Calculer le pourcentage", "description": "Attention à la division par zéro", "test": "pourcentage" },
+    { "titre": "Donner une mention", "description": "Excellent, Bien ou À revoir", "test": "mention" },
+    { "titre": "Mélanger les questions", "description": "Sans modifier le tableau d'origine", "test": "melanger" }
+  ]
+}

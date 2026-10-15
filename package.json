@@ -1,0 +1,91 @@
+{
+  "name": "germin",
+  "version": "1.2.0",
+  "description": "Terrain d'entraînement pour jeunes développeurs : projets guidés, tests pédagogiques, Kanban, tuteur IA (Claude) et déploiement GitHub Pages.",
+  "main": "bin/index.js",
+  "type": "commonjs",
+  "bin": {
+    "germin": "bin/index.js"
+  },
+  "scripts": {
+    "dev": "node bin/index.js",
+    "lint": "eslint src bin",
+    "format": "prettier --write src bin",
+    "prepublishOnly": "npm run format",
+    "test": "jest"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^15.0.0",
+    "express": "^5.3.0",
+    "figlet": "^1.12.0",
+    "inquirer": "^14.2.3",
+    "ora": "^9.4.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "jest": "^30.5.2",
+    "prettier": "^3.9.10",
+    "validate-npm-package-name": "^8.0.0"
+  },
+  "keywords": [
+    "apprentissage",
+    "claude",
+    "cli",
+    "css",
+    "debutant",
+    "education",
+    "generator",
+    "github-pages",
+    "html",
+    "javascript",
+    "kanban",
+    "mini framework",
+    "project",
+    "static",
+    "web"
+  ],
+  "author": "MBROUMSADJA EMMANUEL",
+  "license": "MIT",
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "./coverage",
+    "collectCoverage": false,
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/examples/"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "jest": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "rules": {
+      "no-console": "warn"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 80
+  },
+  "files": [
+    "bin",
+    "src",
+    "lib",
+    "templates",
+    "examples",
+    "README.md",
+    "licence.txt"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

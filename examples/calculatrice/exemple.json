@@ -1,0 +1,14 @@
+{
+  "id": "calculatrice",
+  "titre": "La calculatrice",
+  "niveau": 1,
+  "type": "js",
+  "description": "Écris tes premières fonctions JavaScript : addition, division, moyenne…",
+  "taches": [
+    { "titre": "Fonction addition", "description": "addition(a, b) renvoie la somme", "test": "addition" },
+    { "titre": "Fonction soustraction", "description": "soustraction(a, b) renvoie a - b", "test": "soustraction" },
+    { "titre": "Fonction multiplication", "description": "multiplication(a, b) renvoie le produit", "test": "multiplication" },
+    { "titre": "Fonction division", "description": "Attention au cas de la division par zéro", "test": "division" },
+    { "titre": "Fonction moyenne", "description": "Parcours un tableau de nombres", "test": "moyenne" }
+  ]
+}

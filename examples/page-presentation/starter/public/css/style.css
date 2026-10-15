@@ -1,0 +1,6 @@
+/* 6. Donne une couleur de fond au body avec background-color */
+body {
+  font-family: Arial, sans-serif;
+  max-width: 640px;
+  margin: 2rem auto;
+}

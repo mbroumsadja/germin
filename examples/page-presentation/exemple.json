@@ -1,0 +1,15 @@
+{
+  "id": "page-presentation",
+  "titre": "Ma page de présentation",
+  "niveau": 1,
+  "type": "html",
+  "description": "Construis ta première page web : titre, texte, image, liste, lien et couleurs.",
+  "taches": [
+    { "titre": "Un titre principal (h1)", "description": "Avec ton prénom", "test": "titre" },
+    { "titre": "Un paragraphe de présentation", "description": "Une phrase avec la balise p", "test": "paragraphe" },
+    { "titre": "Une image avec texte alternatif", "description": "Balise img avec src et alt", "test": "image" },
+    { "titre": "Une liste de 3 passions", "description": "Balises ul et li", "test": "liste" },
+    { "titre": "Un lien vers un site", "description": "Balise a avec href", "test": "lien" },
+    { "titre": "Une couleur de fond", "description": "Dans style.css, sur le body", "test": "couleur" }
+  ]
+}
